@@ -21,8 +21,8 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
-        initComponents();
-        
+        initComponents(); 
+        this.setLocationRelativeTo(null); 
         rsscalelabel.RSScaleLabel.setScaleLabel(Logo, "src/RecursosImagenes/LogoSuperAutos.png");
          rsscalelabel.RSScaleLabel.setScaleLabel(Usuario, "src/RecursosImagenes/User.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(Password, "src/RecursosImagenes/Password.png");
@@ -64,6 +64,11 @@ public class Login extends javax.swing.JFrame {
         userTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 userTxtMousePressed(evt);
+            }
+        });
+        userTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userTxtActionPerformed(evt);
             }
         });
         bg.add(userTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 410, 30));
@@ -173,6 +178,10 @@ public class Login extends javax.swing.JFrame {
     private void loginBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseExited
         loginBtn.setBackground(new Color(0,134,190));
     }//GEN-LAST:event_loginBtnTxtMouseExited
+
+    private void userTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userTxtActionPerformed
 
     /**
      * @param args the command line arguments

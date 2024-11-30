@@ -4,6 +4,8 @@
  */
 package proyectosuperautos;
 
+import Clases.Conexionsqlnetbeans;
+import Clases.ManejoLogin;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement; 
@@ -17,6 +19,8 @@ import java.sql.Statement;
  */
 public class Login extends javax.swing.JFrame {
 Conexionsqlnetbeans cone = new Conexionsqlnetbeans();
+
+
     /**
      * Creates new form Login
      */
@@ -169,42 +173,23 @@ Conexionsqlnetbeans cone = new Conexionsqlnetbeans();
 
     private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
           String usuario = userTxt.getText();
-    String clave = String.valueOf(passTxt.getPassword());
+        String clave = String.valueOf(passTxt.getPassword());
 
-   
-    if(usuario.isEmpty() || clave.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        
-        try {
-            String query = "SELECT * FROM USUARIOS WHERE CODIGO = ? AND CLAVE = ? AND ACTIVO = 1";
-            
-            Connection con = cone.obtenerconexion();
-
-        
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, usuario);  
-            ps.setString(2, clave);    
-
-          
-            ResultSet rs = ps.executeQuery();
-
-        
-            if(rs.next()) {
-                
+        if (usuario.isEmpty() || clave.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+         
+            if (ManejoLogin.validarUsuario(usuario, clave)) {
                 Menu frmMenu = new Menu();
-                frmMenu.setVisible(true);  
-                this.setVisible(false);  
+                frmMenu.setVisible(true);
+                this.setVisible(false);
             } else {
-               
-                userTxt.setText("");  
-                passTxt.setText("");  
+                userTxt.setText("");
+                passTxt.setText("");
                 JOptionPane.showMessageDialog(this, "Usuario o clave son incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error en la conexión a la base de datos: " + ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    
     }//GEN-LAST:event_loginBtnTxtMouseClicked
 
     private void loginBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseEntered

@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import java.sql.Statement; 
 import javax.swing.table.DefaultTableModel; 
 import javax.swing.ComboBoxModel; 
@@ -26,7 +25,7 @@ public class MantenimientoComboBoxes {
     Conexionsqlnetbeans cone = new Conexionsqlnetbeans(); 
     
     
-      public DefaultComboBoxModel llenardepartamentosproc ()
+      public DefaultComboBoxModel llenarciudadesproc ()
     {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel ();
         
@@ -34,7 +33,7 @@ public class MantenimientoComboBoxes {
         
         try {
         Connection con = cone.obtenerconexion();
-        CallableStatement cmd = con.prepareCall("{CALL sp_departamentos}");
+        CallableStatement cmd = con.prepareCall("{CALL sp_ciudades}");
         ResultSet rs= cmd.executeQuery();
         
         while(rs.next()) {

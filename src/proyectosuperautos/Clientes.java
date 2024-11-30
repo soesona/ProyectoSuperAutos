@@ -5,6 +5,7 @@
 package proyectosuperautos;
 
 import Clases.Conexionsqlnetbeans;
+import Clases.MantenimientoClientes;
 import Clases.MantenimientoComboBoxes;
 import java.awt.Color;
 import java.sql.Connection; 
@@ -26,12 +27,14 @@ import javax.swing.JTextField;
 public class Clientes extends javax.swing.JFrame {
 Conexionsqlnetbeans cone = new Conexionsqlnetbeans();
 MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
+MantenimientoClientes man = new MantenimientoClientes(); 
     /**
      * Creates new form NewJFrame
      */
     public Clientes() {
         initComponents();
         llenarciudades();
+     man.cargarTablaClientes(jdetalle, 0, 0, "", "", "", "", "", "mostrar");
         
   
     }
@@ -61,7 +64,7 @@ MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
         jLabel7 = new javax.swing.JLabel();
         TxtNombre = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jdetalle = new javax.swing.JTable();
         BtnEliminar = new javax.swing.JButton();
         BtnBuscar = new javax.swing.JButton();
         BtnAgregar = new javax.swing.JButton();
@@ -70,7 +73,6 @@ MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
         TxtTelefono = new javax.swing.JTextField();
         TxtCorreo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -108,7 +110,7 @@ MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 204, 26));
         jPanel1.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 218, -1));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jdetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -116,10 +118,10 @@ MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "ID", "Ciudad", "Direccion", "Telefono", "Correo"
+                "Nombre", "ID", "Telefono", "Correo", "Direccion", "Ciudad"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jdetalle);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 640, 244));
 
@@ -183,18 +185,13 @@ MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
             }
         });
         jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 370, 197, 41));
-        jPanel1.add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, 160, -1));
+        jPanel1.add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, 210, -1));
         jPanel1.add(TxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 220, -1));
         jPanel1.add(TxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 220, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Dirección: ");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 70, -1));
-
-        jButton1.setBackground(new java.awt.Color(204, 0, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("PROBANDO");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 190, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 600));
 
@@ -210,7 +207,21 @@ MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        // TODO add your handling code here:
+       man.mantenimientoClientes(
+    0,                                      // ID, valor 0 para nuevo cliente
+    CboCiudades.getSelectedIndex(),         // ID de la ciudad (Índice de combo box)
+    TxtNombre.getText(),                    // Nombre del cliente
+    TxtID.getText(),                        // RTN del cliente
+    TxtTelefono.getText(),                  // Teléfono
+    TxtCorreo.getText(),                    // Correo
+    TxtDireccion.getText(),                 // Dirección
+    "agregar"                               // Acción: 'agregar'
+    ); 
+    
+    JOptionPane.showMessageDialog(null, "Cliente registrado exitosamente");
+
+     man.cargarTablaClientes(jdetalle, 0, 0, "", "", "", "", "", "mostrar");
+    
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
@@ -265,7 +276,6 @@ MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
     private javax.swing.JTextField TxtID;
     private javax.swing.JTextField TxtNombre;
     private javax.swing.JTextField TxtTelefono;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -275,6 +285,6 @@ MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jdetalle;
     // End of variables declaration//GEN-END:variables
 }

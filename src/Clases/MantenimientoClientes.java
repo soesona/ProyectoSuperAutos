@@ -26,30 +26,30 @@ public class MantenimientoClientes {
     
 public void mantenimientoClientes(int id, int id_ciudad, String nombre, String rtn, String telefono, String correo, String direccion, String accion) {
     try {
-        Connection con = cone.obtenerconexion(); // Método para obtener conexión
-         CallableStatement cmd  = con.prepareCall("{CALL mantenimientoClientes(?,?,?,?,?,?,?,?)}"); // Llamada al procedimiento
+        Connection con = cone.obtenerconexion(); 
+         CallableStatement cmd  = con.prepareCall("{CALL mantenimientoClientes(?,?,?,?,?,?,?,?)}"); 
         
-        // Asignación de parámetros
-        cmd.setInt(1, id); // ID
-        cmd.setInt(2, id_ciudad); // ID_CIUDAD
-        cmd.setString(3, nombre); // NOMBRE
-        cmd.setString(4, rtn); // RTN
-        cmd.setString(5, telefono); // TELEFONO
-        cmd.setString(6, correo); // CORREO
-        cmd.setString(7, direccion); // DIRECCION
-        cmd.setString(8, accion); // ACCION
+       
+        cmd.setInt(1, id); 
+        cmd.setInt(2, id_ciudad); 
+        cmd.setString(3, nombre); 
+        cmd.setString(4, rtn); 
+        cmd.setString(5, telefono); 
+        cmd.setString(6, correo); 
+        cmd.setString(7, direccion); 
+        cmd.setString(8, accion); 
         
-        // Ejecución del procedimiento
+     
         cmd.execute();
         
     } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, ex.toString()); // Manejo de errores
+        JOptionPane.showMessageDialog(null, ex.toString()); 
     }
 }
 
 public void cargarTablaClientes(JTable tabla, int codigo, int idCiudad, String nombre, String rtn, String telefono, String correo, String direccion, String accion) {
     DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
-    modeloTabla.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+    modeloTabla.setRowCount(0); 
 
     ResultSet rs;
     ResultSetMetaData rsmd;
@@ -61,14 +61,14 @@ public void cargarTablaClientes(JTable tabla, int codigo, int idCiudad, String n
         CallableStatement cmd = con.prepareCall("{CALL mantenimientoClientes(?,?,?,?,?,?,?,?)}"); 
 
        
-         cmd.setInt(1, codigo);               // ID (No usado para 'mostrar', pero debe ser pasado como parámetro)
-        cmd.setInt(2, idCiudad);             // ID_CIUDAD (Campo numérico)
-        cmd.setString(3, nombre);            // Nombre
-        cmd.setString(4, rtn);               // RTN
-        cmd.setString(5, telefono);          // Teléfono
-        cmd.setString(6, correo);            // Correo
-        cmd.setString(7, direccion);         // Dirección
-        cmd.setString(8, accion);            // Acción 'mostrar'
+         cmd.setInt(1, codigo);              
+        cmd.setInt(2, idCiudad);             
+        cmd.setString(3, nombre);            
+        cmd.setString(4, rtn);               
+        cmd.setString(5, telefono);          
+        cmd.setString(6, correo);            
+        cmd.setString(7, direccion);         
+        cmd.setString(8, accion);            
 
 
      

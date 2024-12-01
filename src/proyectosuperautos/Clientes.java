@@ -57,7 +57,6 @@ int codigo;
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         TxtDireccion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         CboCiudades = new javax.swing.JComboBox<>();
@@ -80,14 +79,11 @@ int codigo;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        jLabel3.setText("CLIENTES");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, -1, 27));
         jPanel1.add(TxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 220, 56));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -132,7 +128,7 @@ int codigo;
         });
         jScrollPane2.setViewportView(jdetalle);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 640, 244));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 640, 280));
 
         BtnEliminar.setBackground(new java.awt.Color(193, 82, 57));
         BtnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -208,7 +204,7 @@ int codigo;
         jLabel10.setText("Dirección: ");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 70, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 600));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -414,7 +410,6 @@ private void limpiarCampos() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

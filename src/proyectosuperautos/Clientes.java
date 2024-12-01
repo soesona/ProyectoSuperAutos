@@ -28,11 +28,15 @@ public class Clientes extends javax.swing.JFrame {
 Conexionsqlnetbeans cone = new Conexionsqlnetbeans();
 MantenimientoComboBoxes mancbo = new MantenimientoComboBoxes();
 MantenimientoClientes man = new MantenimientoClientes(); 
+int fila;
+int codigo; 
+
     /**
      * Creates new form NewJFrame
      */
     public Clientes() {
         initComponents();
+         this.setLocationRelativeTo(null); 
         llenarciudades();
      man.cargarTablaClientes(jdetalle, 0, 0, "", "", "", "", "", "mostrar");
         
@@ -121,6 +125,11 @@ MantenimientoClientes man = new MantenimientoClientes();
                 "Nombre", "ID", "Telefono", "Correo", "Direccion", "Ciudad"
             }
         ));
+        jdetalle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jdetalleMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jdetalle);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 640, 244));
@@ -185,6 +194,12 @@ MantenimientoClientes man = new MantenimientoClientes();
             }
         });
         jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 370, 197, 41));
+
+        TxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtBuscarKeyPressed(evt);
+            }
+        });
         jPanel1.add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, 210, -1));
         jPanel1.add(TxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 220, -1));
         jPanel1.add(TxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 220, -1));
@@ -199,7 +214,10 @@ MantenimientoClientes man = new MantenimientoClientes();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        // TODO add your handling code here:
+    man.mantenimientoClientes(codigo,0, "1","1","1","1","1","eliminar");
+    JOptionPane.showMessageDialog(null, "El registro ha sido eliminado");
+    limpiarCampos(); 
+   man.cargarTablaClientes(jdetalle, 0, 0, "", "", "", "", "", "mostrar");
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
@@ -208,26 +226,143 @@ MantenimientoClientes man = new MantenimientoClientes();
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
        man.mantenimientoClientes(
-    0,                                      // ID, valor 0 para nuevo cliente
-    CboCiudades.getSelectedIndex(),         // ID de la ciudad (Índice de combo box)
-    TxtNombre.getText(),                    // Nombre del cliente
-    TxtID.getText(),                        // RTN del cliente
-    TxtTelefono.getText(),                  // Teléfono
-    TxtCorreo.getText(),                    // Correo
-    TxtDireccion.getText(),                 // Dirección
-    "agregar"                               // Acción: 'agregar'
+    0,                                      
+    CboCiudades.getSelectedIndex(),         
+    TxtNombre.getText(),                    
+    TxtID.getText(),                        
+    TxtTelefono.getText(),                 
+    TxtCorreo.getText(),                    
+    TxtDireccion.getText(),                 
+    "agregar"                               
     ); 
     
     JOptionPane.showMessageDialog(null, "Cliente registrado exitosamente");
+    limpiarCampos(); 
 
      man.cargarTablaClientes(jdetalle, 0, 0, "", "", "", "", "", "mostrar");
     
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        // TODO add your handling code here:
+          man.mantenimientoClientes(
+        codigo,                                 
+        CboCiudades.getSelectedIndex(),         
+        TxtNombre.getText(),                   
+        TxtID.getText(),                        
+        TxtTelefono.getText(),                 
+        TxtCorreo.getText(),                  
+        TxtDireccion.getText(),                
+        "actualizar"                             
+    ); 
+    
+  
+    JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente");
+
+    man.cargarTablaClientes(jdetalle, 0, 0, "", "", "", "", "", "mostrar"); 
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
+    private void jdetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jdetalleMouseClicked
+    try {
+            
+        fila = jdetalle.getSelectedRow(); 
+        
+    
+        String rtn = jdetalle.getValueAt(fila, 1).toString(); 
+        
+       
+        ResultSet rs;
+        Connection con = cone.obtenerconexion();
+        CallableStatement cmd = con.prepareCall("{CALL mostrarClienteEspecifico(?)}"); 
+        
+        
+        cmd.setString(1, rtn); 
+        
+       
+        rs = cmd.executeQuery();
+        
+        
+        if (rs.next()) {
+            
+            TxtID.setText(String.valueOf(rs.getString("RTN"))); 
+            TxtNombre.setText(rs.getString("NOMBRE"));     
+            TxtTelefono.setText(rs.getString("TELEFONO")); 
+            TxtCorreo.setText(rs.getString("CORREO"));     
+            TxtDireccion.setText(rs.getString("DIRECCION"));
+            CboCiudades.setSelectedItem(rs.getString("CIUDAD")); 
+             codigo = rs.getInt("ID");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al cargar los datos: " + ex.getMessage());
+    }
+    
+    }//GEN-LAST:event_jdetalleMouseClicked
+
+    private void TxtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarKeyPressed
+     DefaultTableModel modelotabla = (DefaultTableModel) jdetalle.getModel();
+     
+     modelotabla.setRowCount(0);
+     PreparedStatement ps;
+     ResultSet rs;
+     ResultSetMetaData rsmd; 
+     int columnas = 0;
+  
+     String sql = "SELECT " +
+                 "c.NOMBRE, " +             
+                 "c.RTN, " +              
+                 "c.TELEFONO, " +          
+                 "c.CORREO, " +            
+                 "c.DIRECCION, " +        
+                 "ci.DESCRIPCION AS CIUDAD " +  
+                 "FROM Clientes c " +
+                 "INNER JOIN Ciudades ci ON c.ID_CIUDAD = ci.ID " +
+                 "WHERE c.NOMBRE LIKE '%" + TxtBuscar.getText() + "%' " +  
+                 "OR c.RTN LIKE '%" + TxtBuscar.getText() + "%'";       
+               
+               
+              
+     
+     try  {
+         
+         Connection con=  cone.obtenerconexion();
+         ps = con.prepareStatement(sql);
+         
+       
+
+         rs = ps.executeQuery();
+         rsmd = rs.getMetaData();
+         columnas = rsmd.getColumnCount();
+         
+         while(rs.next())
+             
+         {
+             Object[] fila = new Object[columnas];
+             
+             for(int i = 0 ; i< columnas; i++)
+             {
+                 fila[i] = rs.getObject(i+1);
+             }
+             
+             modelotabla.addRow(fila);
+             }
+         
+         } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al cargar los datos: " + ex.getMessage());
+         }
+     
+     
+     
+    }//GEN-LAST:event_TxtBuscarKeyPressed
+private void limpiarCampos() {
+    
+      TxtID.setText(""); 
+    TxtNombre.setText("");     
+    TxtTelefono.setText(""); 
+    TxtCorreo.setText("");     
+    TxtDireccion.setText(""); 
+    
+    
+    CboCiudades.setSelectedIndex(0);
+    }
     /**
      * @param args the command line arguments
      */

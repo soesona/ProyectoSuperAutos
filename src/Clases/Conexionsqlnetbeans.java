@@ -28,7 +28,7 @@ public class Conexionsqlnetbeans {
         String cadena = "jdbc:sqlserver://localhost:1433;databaseName=SuperAutos;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
         
         conexion = DriverManager.getConnection(cadena);
-        JOptionPane.showMessageDialog(null, "Conexión exitosa");
+       
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(null, "Error: " + ex.toString());
     }

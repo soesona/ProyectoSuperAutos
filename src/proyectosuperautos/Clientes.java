@@ -7,6 +7,7 @@ package proyectosuperautos;
 import Clases.Conexionsqlnetbeans;
 import Clases.MantenimientoClientes;
 import Clases.MantenimientoComboBoxes;
+import Clases.Validaciones;
 import java.awt.Color;
 import java.sql.Connection; 
 import java.sql.PreparedStatement;
@@ -178,7 +179,7 @@ int codigo;
         BtnActualizar.setBackground(new java.awt.Color(2, 167, 63));
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/BuscarIcon.png"))); // NOI18N
+        BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/ActualizarIcon.png"))); // NOI18N
         BtnActualizar.setText("Actualizar");
         BtnActualizar.setBorder(null);
         BtnActualizar.setBorderPainted(false);
@@ -221,7 +222,25 @@ int codigo;
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-       man.mantenimientoClientes(
+       
+        if (Validaciones.esCampoVacio(TxtNombre, "Nombre de Cliente") || 
+    Validaciones.esCampoVacio(TxtDireccion, "Dirección") || 
+    Validaciones.esCampoVacio(TxtTelefono, "Teléfono") || 
+    Validaciones.esCampoVacio(TxtCorreo, "Correo electrónico") || 
+    Validaciones.esCampoVacio(TxtID, "RTN") || 
+    Validaciones.esComboVacio(CboCiudades)) {
+    return;  
+}
+
+
+if (!Validaciones.esSoloLetras(TxtNombre, "Nombre del Cliente") || 
+    !Validaciones.esTelefonoValido(TxtTelefono) || 
+    !Validaciones.esCorreoValido(TxtCorreo, "Correo electrónico") || 
+    !Validaciones.esRtnValido(TxtID, "RTN")) { 
+    return;  
+}
+        
+        man.mantenimientoClientes(
     0,                                      
     CboCiudades.getSelectedIndex(),         
     TxtNombre.getText(),                    
@@ -240,7 +259,24 @@ int codigo;
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-          man.mantenimientoClientes(
+           if (Validaciones.esCampoVacio(TxtNombre, "Nombre de Cliente") || 
+    Validaciones.esCampoVacio(TxtDireccion, "Dirección") || 
+    Validaciones.esCampoVacio(TxtTelefono, "Teléfono") || 
+    Validaciones.esCampoVacio(TxtCorreo, "Correo electrónico") || 
+    Validaciones.esCampoVacio(TxtID, "RTN") || 
+    Validaciones.esComboVacio(CboCiudades)) {
+    return;  
+}
+
+
+if (!Validaciones.esSoloLetras(TxtNombre, "Nombre del Cliente") || 
+    !Validaciones.esTelefonoValido(TxtTelefono) || 
+    !Validaciones.esCorreoValido(TxtCorreo, "Correo electrónico") || 
+    !Validaciones.esRtnValido(TxtID, "RTN")) { 
+    return;  
+}
+        
+        man.mantenimientoClientes(
         codigo,                                 
         CboCiudades.getSelectedIndex(),         
         TxtNombre.getText(),                   
@@ -253,7 +289,7 @@ int codigo;
     
   
     JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente");
-
+ limpiarCampos();
     man.cargarTablaClientes(jdetalle, 0, 0, "", "", "", "", "", "mostrar"); 
     }//GEN-LAST:event_BtnActualizarActionPerformed
 

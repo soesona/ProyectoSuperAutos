@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException; 
 import javax.swing.JOptionPane;
 import java.sql.Statement;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 /**
  *
@@ -23,16 +24,18 @@ import javax.swing.JPanel;
 public class Menu extends javax.swing.JFrame {
 Conexionsqlnetbeans cone = new Conexionsqlnetbeans();
 int xMouse;
-    int yMouse;
+int yMouse;
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(null); 
-         rsscalelabel.RSScaleLabel.setScaleLabel(ProgramaAutos, "src/RecursosImagenes/LogoEnPNG.png");
          
-         
+         rsscalelabel.RSScaleLabel.setScaleLabel(ProgramaAutos, "src/RecursosImagenes/Logo150.png");
+           
+         PrincipalMenu p1 = new PrincipalMenu () {};
+       ShowPanel((JPanel) p1.getContentPane());    
        
         
         
@@ -76,18 +79,25 @@ int xMouse;
         BtnCatalogo = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        BtnTransacciones = new javax.swing.JPanel();
+        BtnSucursales = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         BtnUsuarios = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        BtnCerrarSesion = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        BtnTransacciones = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
         Title = new javax.swing.JPanel();
         content = new javax.swing.JPanel();
         red_squr = new javax.swing.JPanel();
         exit = new javax.swing.JLabel();
+        Mnimizar = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
@@ -120,6 +130,7 @@ int xMouse;
         BtnPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/PrincipalIcon.png"))); // NOI18N
         BtnPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -127,7 +138,7 @@ int xMouse;
         jLabel5.setText("Principal");
         BtnPrincipal.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 270, 50));
+        Menu.add(BtnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 270, 50));
 
         BtnVehiculos.setBackground(new java.awt.Color(73, 176, 111));
         BtnVehiculos.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,6 +158,7 @@ int xMouse;
         BtnVehiculos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/VehiculoIcon.png"))); // NOI18N
         BtnVehiculos.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -154,7 +166,7 @@ int xMouse;
         jLabel4.setText("Vehículos");
         BtnVehiculos.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, -1, -1));
+        Menu.add(BtnVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, -1));
 
         BtnVentas.setBackground(new java.awt.Color(73, 176, 111));
         BtnVentas.setForeground(new java.awt.Color(255, 255, 255));
@@ -181,7 +193,7 @@ int xMouse;
         jLabel8.setText("Ventas");
         BtnVentas.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, -1, -1));
+        Menu.add(BtnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, -1, -1));
 
         BtnProveedores.setBackground(new java.awt.Color(73, 176, 111));
         BtnProveedores.setForeground(new java.awt.Color(255, 255, 255));
@@ -208,7 +220,7 @@ int xMouse;
         jLabel10.setText("Proveedores");
         BtnProveedores.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, -1, -1));
+        Menu.add(BtnProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, -1, -1));
 
         BtnEmpleados.setBackground(new java.awt.Color(73, 176, 111));
         BtnEmpleados.setForeground(new java.awt.Color(255, 255, 255));
@@ -235,7 +247,7 @@ int xMouse;
         jLabel12.setText("Empleados");
         BtnEmpleados.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, -1, -1));
+        Menu.add(BtnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, -1, -1));
 
         BtnClientes.setBackground(new java.awt.Color(73, 176, 111));
         BtnClientes.setForeground(new java.awt.Color(255, 255, 255));
@@ -258,6 +270,7 @@ int xMouse;
         BtnClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/ClienteIcon.png"))); // NOI18N
         BtnClientes.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -265,16 +278,16 @@ int xMouse;
         jLabel14.setText("Clientes");
         BtnClientes.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, -1, -1));
+        Menu.add(BtnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, -1, -1));
 
         ProgramaAutos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         ProgramaAutos.setForeground(new java.awt.Color(255, 255, 255));
-        ProgramaAutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/SedanSilueta.png"))); // NOI18N
-        Menu.add(ProgramaAutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 64, 64));
+        ProgramaAutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/Logo150.png"))); // NOI18N
+        Menu.add(ProgramaAutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 150, 100));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator1.setPreferredSize(new java.awt.Dimension(50, 5));
-        Menu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 190, 20));
+        Menu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 190, 20));
 
         BtnPlanilla.setBackground(new java.awt.Color(73, 176, 111));
         BtnPlanilla.setForeground(new java.awt.Color(255, 255, 255));
@@ -301,7 +314,7 @@ int xMouse;
         jLabel16.setText("Planilla de pago");
         BtnPlanilla.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnPlanilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, -1, -1));
+        Menu.add(BtnPlanilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, -1, -1));
 
         BtnCatalogo.setBackground(new java.awt.Color(73, 176, 111));
         BtnCatalogo.setForeground(new java.awt.Color(255, 255, 255));
@@ -328,34 +341,38 @@ int xMouse;
         jLabel18.setText(" Catálogo general");
         BtnCatalogo.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnCatalogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, -1, -1));
+        Menu.add(BtnCatalogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, -1, -1));
 
-        BtnTransacciones.setBackground(new java.awt.Color(73, 176, 111));
-        BtnTransacciones.setForeground(new java.awt.Color(255, 255, 255));
-        BtnTransacciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BtnTransacciones.setPreferredSize(new java.awt.Dimension(270, 51));
-        BtnTransacciones.addMouseListener(new java.awt.event.MouseAdapter() {
+        BtnSucursales.setBackground(new java.awt.Color(73, 176, 111));
+        BtnSucursales.setForeground(new java.awt.Color(255, 255, 255));
+        BtnSucursales.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnSucursales.setPreferredSize(new java.awt.Dimension(270, 51));
+        BtnSucursales.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnSucursalesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                BtnTransaccionesMouseEntered(evt);
+                BtnSucursalesMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                BtnTransaccionesMouseExited(evt);
+                BtnSucursalesMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                BtnTransaccionesMousePressed(evt);
+                BtnSucursalesMousePressed(evt);
             }
         });
-        BtnTransacciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        BtnSucursales.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        BtnTransacciones.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/SucursalIcon.png"))); // NOI18N
+        BtnSucursales.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Transacciones ");
-        BtnTransacciones.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
+        jLabel20.setText("Sucursales");
+        BtnSucursales.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnTransacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, -1, -1));
+        Menu.add(BtnSucursales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 620, -1, -1));
 
         BtnUsuarios.setBackground(new java.awt.Color(73, 176, 111));
         BtnUsuarios.setForeground(new java.awt.Color(255, 255, 255));
@@ -382,9 +399,67 @@ int xMouse;
         jLabel24.setText("Usuarios");
         BtnUsuarios.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        Menu.add(BtnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, -1, -1));
+        Menu.add(BtnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, -1, -1));
 
-        Background.add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 630));
+        BtnCerrarSesion.setBackground(new java.awt.Color(193, 82, 57));
+        BtnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        BtnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnCerrarSesion.setPreferredSize(new java.awt.Dimension(270, 51));
+        BtnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCerrarSesionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BtnCerrarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnCerrarSesionMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                BtnCerrarSesionMousePressed(evt);
+            }
+        });
+        BtnCerrarSesion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/LogOutIcon.png"))); // NOI18N
+        BtnCerrarSesion.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Cerrar sesión");
+        BtnCerrarSesion.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
+
+        Menu.add(BtnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, -1, -1));
+
+        BtnTransacciones.setBackground(new java.awt.Color(73, 176, 111));
+        BtnTransacciones.setForeground(new java.awt.Color(255, 255, 255));
+        BtnTransacciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnTransacciones.setPreferredSize(new java.awt.Dimension(270, 51));
+        BtnTransacciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BtnTransaccionesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnTransaccionesMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                BtnTransaccionesMousePressed(evt);
+            }
+        });
+        BtnTransacciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BtnTransacciones.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("Transacciones ");
+        BtnTransacciones.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
+
+        Menu.add(BtnTransacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 570, -1, -1));
+
+        Background.add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 720));
 
         Title.setBackground(new java.awt.Color(255, 255, 255));
         Title.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -440,8 +515,7 @@ int xMouse;
             }
         });
 
-        exit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        exit.setForeground(new java.awt.Color(102, 102, 102));
+        exit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exit.setText("X");
         exit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -462,17 +536,35 @@ int xMouse;
         red_squrLayout.setHorizontalGroup(
             red_squrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(red_squrLayout.createSequentialGroup()
-                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         red_squrLayout.setVerticalGroup(
             red_squrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, red_squrLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(exit))
+            .addGroup(red_squrLayout.createSequentialGroup()
+                .addComponent(exit)
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
-        Background.add(red_squr, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 0, -1, -1));
+        Background.add(red_squr, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 0, 50, 30));
+
+        Mnimizar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Mnimizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Mnimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/minimize-sign.png"))); // NOI18N
+        Mnimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Mnimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MnimizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MnimizarMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MnimizarMousePressed(evt);
+            }
+        });
+        Background.add(Mnimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 0, 36, -1));
 
         jPanel1.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -633,17 +725,17 @@ int xMouse;
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnCatalogoMousePressed
 
-    private void BtnTransaccionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnTransaccionesMouseEntered
+    private void BtnSucursalesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucursalesMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_BtnTransaccionesMouseEntered
+    }//GEN-LAST:event_BtnSucursalesMouseEntered
 
-    private void BtnTransaccionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnTransaccionesMouseExited
+    private void BtnSucursalesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucursalesMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_BtnTransaccionesMouseExited
+    }//GEN-LAST:event_BtnSucursalesMouseExited
 
-    private void BtnTransaccionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnTransaccionesMousePressed
+    private void BtnSucursalesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucursalesMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BtnTransaccionesMousePressed
+    }//GEN-LAST:event_BtnSucursalesMousePressed
 
     private void BtnUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUsuariosMouseEntered
         // TODO add your handling code here:
@@ -658,8 +750,56 @@ int xMouse;
     }//GEN-LAST:event_BtnUsuariosMousePressed
 
     private void BtnPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnPrincipalMouseClicked
-     
+ PrincipalMenu p1 = new PrincipalMenu () {};
+       ShowPanel((JPanel) p1.getContentPane());     
     }//GEN-LAST:event_BtnPrincipalMouseClicked
+
+    private void BtnCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCerrarSesionMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCerrarSesionMouseEntered
+
+    private void BtnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCerrarSesionMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCerrarSesionMouseExited
+
+    private void BtnCerrarSesionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCerrarSesionMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCerrarSesionMousePressed
+
+    private void MnimizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnimizarMousePressed
+           this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_MnimizarMousePressed
+
+    private void MnimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnimizarMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MnimizarMouseExited
+
+    private void MnimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnimizarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MnimizarMouseEntered
+
+    private void BtnSucursalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSucursalesMouseClicked
+     Sucursales p3 = new Sucursales ();
+       ShowPanel((JPanel) p3.getContentPane());
+    }//GEN-LAST:event_BtnSucursalesMouseClicked
+
+    private void BtnTransaccionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnTransaccionesMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnTransaccionesMouseEntered
+
+    private void BtnTransaccionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnTransaccionesMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnTransaccionesMouseExited
+
+    private void BtnTransaccionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnTransaccionesMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnTransaccionesMousePressed
+
+    private void BtnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCerrarSesionMouseClicked
+        this.dispose();
+    Login loginForm = new Login(); 
+    loginForm.setVisible(true); 
+    }//GEN-LAST:event_BtnCerrarSesionMouseClicked
 
     
     private void ShowPanel(JPanel p) {
@@ -710,16 +850,19 @@ int xMouse;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JPanel BtnCatalogo;
+    private javax.swing.JPanel BtnCerrarSesion;
     private javax.swing.JPanel BtnClientes;
     private javax.swing.JPanel BtnEmpleados;
     private javax.swing.JPanel BtnPlanilla;
     private javax.swing.JPanel BtnPrincipal;
     private javax.swing.JPanel BtnProveedores;
+    private javax.swing.JPanel BtnSucursales;
     private javax.swing.JPanel BtnTransacciones;
     private javax.swing.JPanel BtnUsuarios;
     private javax.swing.JPanel BtnVehiculos;
     private javax.swing.JPanel BtnVentas;
     private javax.swing.JPanel Menu;
+    private javax.swing.JLabel Mnimizar;
     private javax.swing.JLabel ProgramaAutos;
     private javax.swing.JPanel Title;
     public static javax.swing.JPanel content;
@@ -736,8 +879,12 @@ int xMouse;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

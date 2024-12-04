@@ -18,14 +18,14 @@ import java.sql.*;
 public class Conexionsqlnetbeans {
     Connection conexion = null;
     String usuario = "localhost";
-    String clave ="dbo";
+    String clave ="31468";
     String db = "SuperAutos";
-    String puerto = "1433";
+    
     
      public Connection obtenerconexion() 
 {
     try {
-        String cadena = "jdbc:sqlserver://localhost:1433;databaseName=SuperAutos;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
+        String cadena = "jdbc:sqlserver://localhost;databaseName=SuperAutos;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
         
         conexion = DriverManager.getConnection(cadena);
        

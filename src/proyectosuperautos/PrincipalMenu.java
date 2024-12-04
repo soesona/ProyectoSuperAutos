@@ -55,7 +55,7 @@ public class PrincipalMenu extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         LogoGrande.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/LogoPrincipal.png"))); // NOI18N
-        jPanel1.add(LogoGrande, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 570, 400));
+        jPanel1.add(LogoGrande, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 570, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

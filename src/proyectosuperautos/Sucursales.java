@@ -268,6 +268,11 @@ if (!Validaciones.esSoloLetras(TxtNombre, "Nombre del Cliente") ||
     !Validaciones.esCorreoValido(TxtCorreo, "Correo electrónico")) {
     return;  
 }
+
+  if (man.verificarCodigoExistente(codigo)) {
+        JOptionPane.showMessageDialog(null, "La sucursal ya existe.");
+        return;  
+    }
         
         man.mantenimientoSucursales(
             0,

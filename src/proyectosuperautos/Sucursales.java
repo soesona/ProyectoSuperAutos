@@ -74,6 +74,7 @@ int codigo;
         TxtDireccion = new javax.swing.JTextField();
         TxtNombre = new javax.swing.JTextField();
         TxtTelefono = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(940, 600));
@@ -84,21 +85,22 @@ int codigo;
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Correo electrónico:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, -1, -1));
 
-        jPanel1.add(CboCiudades, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 190, -1));
+        jPanel1.add(CboCiudades, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 190, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Ciudad:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 60, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 60, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Teléfono: ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("Nombre de sucursal:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 204, 26));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("SUCURSALES");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 204, 26));
 
         jdetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -118,7 +120,7 @@ int codigo;
         });
         jScrollPane2.setViewportView(jdetalle);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 640, 250));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 640, 250));
 
         BtnEliminar.setBackground(new java.awt.Color(193, 82, 57));
         BtnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -133,7 +135,7 @@ int codigo;
                 BtnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 480, 197, 41));
+        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 510, 197, 41));
 
         BtnBuscar.setBackground(new java.awt.Color(133, 133, 133));
         BtnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -148,7 +150,7 @@ int codigo;
                 BtnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 300, 197, 41));
+        jPanel1.add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 330, 197, 41));
 
         BtnAgregar.setBackground(new java.awt.Color(2, 167, 63));
         BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -163,7 +165,7 @@ int codigo;
                 BtnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, 197, 41));
+        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 390, 197, 41));
 
         BtnActualizar.setBackground(new java.awt.Color(2, 167, 63));
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -179,22 +181,26 @@ int codigo;
                 BtnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 420, 197, 41));
+        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 450, 197, 41));
 
         TxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TxtBuscarKeyPressed(evt);
             }
         });
-        jPanel1.add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, 210, -1));
+        jPanel1.add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 210, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Dirección: ");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 70, -1));
-        jPanel1.add(TxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 218, -1));
-        jPanel1.add(TxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 218, 60));
-        jPanel1.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 218, -1));
-        jPanel1.add(TxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 218, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 70, -1));
+        jPanel1.add(TxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 140, 218, -1));
+        jPanel1.add(TxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 218, 60));
+        jPanel1.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 218, -1));
+        jPanel1.add(TxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 218, -1));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setText("Nombre de sucursal:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 204, 26));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 601));
 
@@ -427,6 +433,7 @@ private void limpiarCampos() {
     private javax.swing.JTextField TxtTelefono;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;

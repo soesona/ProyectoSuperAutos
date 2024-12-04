@@ -133,7 +133,7 @@ int codigo;
                 BtnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 430, 197, 41));
+        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 480, 197, 41));
 
         BtnBuscar.setBackground(new java.awt.Color(133, 133, 133));
         BtnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -148,7 +148,7 @@ int codigo;
                 BtnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 197, 41));
+        jPanel1.add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 300, 197, 41));
 
         BtnAgregar.setBackground(new java.awt.Color(2, 167, 63));
         BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -163,7 +163,7 @@ int codigo;
                 BtnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 310, 197, 41));
+        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, 197, 41));
 
         BtnActualizar.setBackground(new java.awt.Color(2, 167, 63));
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -179,7 +179,7 @@ int codigo;
                 BtnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 370, 197, 41));
+        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 420, 197, 41));
 
         TxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {

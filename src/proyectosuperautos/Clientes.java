@@ -227,7 +227,7 @@ int codigo;
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-       
+        
         if (Validaciones.esCampoVacio(TxtNombre, "Nombre de Cliente") || 
     Validaciones.esCampoVacio(TxtDireccion, "Dirección") || 
     Validaciones.esCampoVacio(TxtTelefono, "Teléfono") || 
@@ -244,7 +244,11 @@ if (!Validaciones.esSoloLetras(TxtNombre, "Nombre del Cliente") ||
     !Validaciones.esRtnValido(TxtID, "RTN")) { 
     return;  
 }
-        
+  if (man.verificarCodigoExistente(codigo)) {
+        JOptionPane.showMessageDialog(null, "El cliente ya existe.");
+        return;
+    }
+ 
         man.mantenimientoClientes(
     0,                                      
     CboCiudades.getSelectedIndex(),         
@@ -280,7 +284,10 @@ if (!Validaciones.esSoloLetras(TxtNombre, "Nombre del Cliente") ||
     !Validaciones.esRtnValido(TxtID, "RTN")) { 
     return;  
 }
-        
+
+  
+   
+   
         man.mantenimientoClientes(
         codigo,                                 
         CboCiudades.getSelectedIndex(),         
@@ -404,6 +411,9 @@ private void limpiarCampos() {
     
     CboCiudades.setSelectedIndex(0);
     }
+
+
+
     /**
      * @param args the command line arguments
      */

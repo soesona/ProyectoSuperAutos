@@ -25,8 +25,8 @@ public class Conexionsqlnetbeans {
      public Connection obtenerconexion() 
 {
     try {
-        String cadena = "jdbc:sqlserver://localhost:1433;databaseName=SuperAutos;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
-        
+//        String cadena = "jdbc:sqlserver://localhost:1433;databaseName=SuperAutos;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
+        String cadena = "jdbc:sqlserver://localhost:1433;databaseName=SuperAutos;user=usersql;password=1234;encrypt=true;trustServerCertificate=true";
         conexion = DriverManager.getConnection(cadena);
        
     } catch (Exception ex) {

@@ -25,7 +25,7 @@ public class MantenimientoComboBoxes {
     Conexionsqlnetbeans cone = new Conexionsqlnetbeans(); 
     
     
-      public DefaultComboBoxModel llenarciudadesproc ()
+    public DefaultComboBoxModel llenarciudadesproc ()
     {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel ();
         
@@ -33,7 +33,7 @@ public class MantenimientoComboBoxes {
         
         try {
         Connection con = cone.obtenerconexion();
-        CallableStatement cmd = con.prepareCall("{CALL sp_ciudades}");
+        CallableStatement cmd = con.prepareCall("{CALL sp_ciudades(0, '', 'MOSTRAR')}");
         ResultSet rs= cmd.executeQuery();
         
         while(rs.next()) {
@@ -48,6 +48,90 @@ public class MantenimientoComboBoxes {
         JOptionPane.showMessageDialog(null, ex.toString());
         
         }
+        return modelo; 
+    }
+    
+    public DefaultComboBoxModel llenartiposfacturas ()
+    {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel ();
+        
+        modelo.addElement("Seleccione");
+        
+        try {
+        Connection con = cone.obtenerconexion();
+        CallableStatement cmd = con.prepareCall("{CALL SP_FACTURAS_TIPOS(0, '', 'MOSTRAR')}");
+        ResultSet rs= cmd.executeQuery();
+        
+        while(rs.next()) {
+        
+            modelo.addElement(rs.getString(2));
+        
+        }
+        
+        }
+        catch(Exception ex) 
+        {
+        JOptionPane.showMessageDialog(null, ex.toString());
+        
+        }
+        return modelo; 
+    }
+    
+    
+    
+    public DefaultComboBoxModel llenarVehiculos ()
+    {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel ();
+        
+        modelo.addElement("000 - Seleccione");
+        
+        try {
+        Connection con = cone.obtenerconexion();
+
+        CallableStatement cmd = con.prepareCall("{CALL SP_VEHICULOS(0, 0, 0, 0, 0, 0, '', '', 0, '', 0, 0, 0, 'MOSTRAR')}");
+
+        ResultSet rs= cmd.executeQuery();
+        
+        while(rs.next()) {
+//            System.out.println(rs.getString(1));
+            modelo.addElement(rs.getString(1));
+        
+        }
+
+        }
+        catch(Exception ex) 
+        {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+
+        return modelo; 
+    }
+    
+    public DefaultComboBoxModel llenarClientes ()
+    {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel ();
+        
+        modelo.addElement("000 - Seleccione");
+        
+        try {
+        Connection con = cone.obtenerconexion();
+
+        CallableStatement cmd = con.prepareCall("{CALL SP_CLIENTES()}");
+
+        ResultSet rs= cmd.executeQuery();
+        
+        while(rs.next()) {
+//            System.out.println(rs.getString(1));
+            modelo.addElement(rs.getString(1));
+        
+        }
+
+        }
+        catch(Exception ex) 
+        {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+
         return modelo; 
     }
 }

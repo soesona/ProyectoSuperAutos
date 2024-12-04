@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package proyectosuperautos;
-
+ 
 import Clases.Conexionsqlnetbeans;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -91,6 +91,18 @@ int yMouse;
         BtnTransacciones = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
+        BtnCatalogo1 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        BtnCatalogo2 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        BtnCatalogo3 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        BtnEmpleados1 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
         Title = new javax.swing.JPanel();
         content = new javax.swing.JPanel();
         red_squr = new javax.swing.JPanel();
@@ -173,6 +185,9 @@ int yMouse;
         BtnVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         BtnVentas.setPreferredSize(new java.awt.Dimension(270, 51));
         BtnVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnVentasMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 BtnVentasMouseEntered(evt);
             }
@@ -186,6 +201,7 @@ int yMouse;
         BtnVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/Sale.png"))); // NOI18N
         BtnVentas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -213,6 +229,7 @@ int yMouse;
         BtnProveedores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/provider.png"))); // NOI18N
         BtnProveedores.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -240,14 +257,15 @@ int yMouse;
         BtnEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        BtnEmpleados.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/employees.png"))); // NOI18N
+        BtnEmpleados.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 30, 30));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Empleados");
-        BtnEmpleados.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
+        BtnEmpleados.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, -1, 30));
 
-        Menu.add(BtnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, -1, -1));
+        Menu.add(BtnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 441, -1, 30));
 
         BtnClientes.setBackground(new java.awt.Color(73, 176, 111));
         BtnClientes.setForeground(new java.awt.Color(255, 255, 255));
@@ -307,6 +325,7 @@ int yMouse;
         BtnPlanilla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/payroll.png"))); // NOI18N
         BtnPlanilla.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -321,6 +340,9 @@ int yMouse;
         BtnCatalogo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         BtnCatalogo.setPreferredSize(new java.awt.Dimension(270, 51));
         BtnCatalogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCatalogoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 BtnCatalogoMouseEntered(evt);
             }
@@ -338,10 +360,10 @@ int yMouse;
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText(" Catálogo general");
-        BtnCatalogo.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
+        jLabel18.setText("Puestos");
+        BtnCatalogo.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 60, -1));
 
-        Menu.add(BtnCatalogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, -1, -1));
+        Menu.add(BtnCatalogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 130, 20));
 
         BtnSucursales.setBackground(new java.awt.Color(73, 176, 111));
         BtnSucursales.setForeground(new java.awt.Color(255, 255, 255));
@@ -392,6 +414,7 @@ int yMouse;
         BtnUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/users.png"))); // NOI18N
         BtnUsuarios.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -450,6 +473,7 @@ int yMouse;
         BtnTransacciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/transaction.png"))); // NOI18N
         BtnTransacciones.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -458,6 +482,127 @@ int yMouse;
         BtnTransacciones.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
         Menu.add(BtnTransacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 570, -1, -1));
+
+        BtnCatalogo1.setBackground(new java.awt.Color(73, 176, 111));
+        BtnCatalogo1.setForeground(new java.awt.Color(255, 255, 255));
+        BtnCatalogo1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnCatalogo1.setPreferredSize(new java.awt.Dimension(270, 51));
+        BtnCatalogo1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCatalogo1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BtnCatalogo1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnCatalogo1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                BtnCatalogo1MousePressed(evt);
+            }
+        });
+        BtnCatalogo1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BtnCatalogo1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel28.setText("Jornadas");
+        BtnCatalogo1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 70, -1));
+
+        Menu.add(BtnCatalogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 140, 20));
+
+        BtnCatalogo2.setBackground(new java.awt.Color(73, 176, 111));
+        BtnCatalogo2.setForeground(new java.awt.Color(255, 255, 255));
+        BtnCatalogo2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnCatalogo2.setPreferredSize(new java.awt.Dimension(270, 51));
+        BtnCatalogo2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCatalogo2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BtnCatalogo2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnCatalogo2MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                BtnCatalogo2MousePressed(evt);
+            }
+        });
+        BtnCatalogo2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BtnCatalogo2.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("Ciudades");
+        BtnCatalogo2.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 70, -1));
+
+        Menu.add(BtnCatalogo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 140, 20));
+
+        BtnCatalogo3.setBackground(new java.awt.Color(73, 176, 111));
+        BtnCatalogo3.setForeground(new java.awt.Color(255, 255, 255));
+        BtnCatalogo3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnCatalogo3.setPreferredSize(new java.awt.Dimension(270, 51));
+        BtnCatalogo3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCatalogo3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BtnCatalogo3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnCatalogo3MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                BtnCatalogo3MousePressed(evt);
+            }
+        });
+        BtnCatalogo3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BtnCatalogo3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setText("Marcas");
+        BtnCatalogo3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 60, -1));
+
+        Menu.add(BtnCatalogo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 130, 20));
+
+        BtnEmpleados1.setBackground(new java.awt.Color(73, 176, 111));
+        BtnEmpleados1.setForeground(new java.awt.Color(255, 255, 255));
+        BtnEmpleados1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnEmpleados1.setPreferredSize(new java.awt.Dimension(270, 51));
+        BtnEmpleados1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnEmpleados1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BtnEmpleados1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnEmpleados1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                BtnEmpleados1MousePressed(evt);
+            }
+        });
+        BtnEmpleados1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BtnEmpleados1.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel34.setText("Roles");
+        BtnEmpleados1.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, -1, 30));
+
+        Menu.add(BtnEmpleados1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 270, 30));
 
         Background.add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 720));
 
@@ -496,10 +641,10 @@ int yMouse;
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addGap(0, 690, Short.MAX_VALUE)
         );
 
-        Background.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 940, 610));
+        Background.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 940, 690));
 
         red_squr.setBackground(new java.awt.Color(255, 255, 255));
         red_squr.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -801,6 +946,84 @@ int yMouse;
     loginForm.setVisible(true); 
     }//GEN-LAST:event_BtnCerrarSesionMouseClicked
 
+    private void BtnCatalogo1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCatalogo1MouseEntered
+
+    private void BtnCatalogo1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCatalogo1MouseExited
+
+    private void BtnCatalogo1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCatalogo1MousePressed
+
+    private void BtnCatalogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogoMouseClicked
+        Puestos p3 = new Puestos ();
+        ShowPanel((JPanel) p3.getContentPane());
+    }//GEN-LAST:event_BtnCatalogoMouseClicked
+
+    private void BtnCatalogo2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCatalogo2MouseEntered
+
+    private void BtnCatalogo2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCatalogo2MouseExited
+
+    private void BtnCatalogo2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo2MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCatalogo2MousePressed
+
+    private void BtnCatalogo3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo3MouseClicked
+        Marcas p3 = new Marcas();
+        ShowPanel((JPanel) p3.getContentPane());
+    }//GEN-LAST:event_BtnCatalogo3MouseClicked
+
+    private void BtnCatalogo3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCatalogo3MouseEntered
+
+    private void BtnCatalogo3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCatalogo3MouseExited
+
+    private void BtnCatalogo3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo3MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCatalogo3MousePressed
+
+    private void BtnEmpleados1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEmpleados1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnEmpleados1MouseEntered
+
+    private void BtnEmpleados1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEmpleados1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnEmpleados1MouseExited
+
+    private void BtnEmpleados1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEmpleados1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnEmpleados1MousePressed
+
+    private void BtnCatalogo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo1MouseClicked
+        Jornadas p3 = new Jornadas ();
+        ShowPanel((JPanel) p3.getContentPane());
+    }//GEN-LAST:event_BtnCatalogo1MouseClicked
+
+    private void BtnCatalogo2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCatalogo2MouseClicked
+        Ciudades p3 = new Ciudades ();
+        ShowPanel((JPanel) p3.getContentPane());
+    }//GEN-LAST:event_BtnCatalogo2MouseClicked
+
+    private void BtnEmpleados1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEmpleados1MouseClicked
+        Roles p3 = new Roles ();
+        ShowPanel((JPanel) p3.getContentPane());
+    }//GEN-LAST:event_BtnEmpleados1MouseClicked
+
+    private void BtnVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnVentasMouseClicked
+        Factura p3 = new Factura();
+        ShowPanel((JPanel) p3.getContentPane());
+    }//GEN-LAST:event_BtnVentasMouseClicked
+
     
     private void ShowPanel(JPanel p) {
         p.setSize(940,550);
@@ -850,9 +1073,13 @@ int yMouse;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JPanel BtnCatalogo;
+    private javax.swing.JPanel BtnCatalogo1;
+    private javax.swing.JPanel BtnCatalogo2;
+    private javax.swing.JPanel BtnCatalogo3;
     private javax.swing.JPanel BtnCerrarSesion;
     private javax.swing.JPanel BtnClientes;
     private javax.swing.JPanel BtnEmpleados;
+    private javax.swing.JPanel BtnEmpleados1;
     private javax.swing.JPanel BtnPlanilla;
     private javax.swing.JPanel BtnPrincipal;
     private javax.swing.JPanel BtnProveedores;
@@ -885,7 +1112,15 @@ int yMouse;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;

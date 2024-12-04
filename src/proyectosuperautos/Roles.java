@@ -11,23 +11,100 @@ import java.sql.ResultSet;
 import java.sql.SQLException; 
 import javax.swing.JOptionPane;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import Clases.Conexionsqlnetbeans;
+import Clases.MantenimientoCatalogos;
+import javax.swing.SwingUtilities;
 /**
  *
  * @author Sthefany
  */
-public class Login extends javax.swing.JFrame {
-Conexionsqlnetbeans cone = new Conexionsqlnetbeans();
+public class Roles extends javax.swing.JFrame {
+    Conexionsqlnetbeans cone        = new Conexionsqlnetbeans();
+    DefaultTableModel   vrmodelo    = new DefaultTableModel();
+    Statement           vrstmt      = null;
+    ResultSet           vrrs        = null;
+    String              vrtabla     = "ROLES";
+    
+    int fila;
+    int codigo;
+    
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Roles() {
         initComponents(); 
         this.setLocationRelativeTo(null); 
-        rsscalelabel.RSScaleLabel.setScaleLabel(Logo, "src/RecursosImagenes/LogoSuperAutos.png");
-         rsscalelabel.RSScaleLabel.setScaleLabel(Usuario, "src/RecursosImagenes/User.png");
-        rsscalelabel.RSScaleLabel.setScaleLabel(Password, "src/RecursosImagenes/Password.png");
+        cone.obtenerconexion();
+        mtd_mostrar_tabla();
+        this.txtdescripcion.putClientProperty("id",0);
     }
+    
+    public boolean mtd_buscar(String vrsearch, boolean vrmodificando)
+    {
+        boolean found   = false;
+        
+        for (int row = 0; row < vrmodelo.getRowCount(); row++) {
+            for (int col = 0; col < vrmodelo.getColumnCount(); col++) {
+                Object cellValue = vrmodelo.getValueAt(row, col);
+                
+                if(vrsearch.equals(cellValue.toString()))
+                {
+                    this.tbl_detalle.setRowSelectionInterval(row, row);
+                    this.tbl_detalle.setColumnSelectionInterval(col, col);
 
+                    found = true;
+
+                    if(vrmodificando)
+                    {
+                        Integer vrid_encontrado;
+                        MantenimientoCatalogos vrman = new MantenimientoCatalogos();
+                        
+                        vrid_encontrado = vrman.obtener_id(vrtabla, vrsearch);
+                        
+                        if(vrid_encontrado == codigo)
+                        {
+                            found = false;
+                        }
+                    }
+
+                    if (found) break;
+                }
+                else
+                {
+
+                    found = false;
+                }
+            }
+
+            if (found) break;
+        }
+
+        return found;
+    }
+    
+    public void mtd_mostrar_tabla()
+    {
+        MantenimientoCatalogos vrman = new MantenimientoCatalogos();
+        vrmodelo = vrman.obtener_catalogo_grid(vrtabla);        
+        this.tbl_detalle.setModel(vrmodelo);
+    }
+    
+    public void mtd_limpiar()
+    {
+        this.txtdescripcion.setText("");
+        mtd_mostrar_tabla();
+        codigo = 0;
+        SwingUtilities.invokeLater(() -> txtdescripcion.requestFocusInWindow());
+    }
+    
+//    private void mtd_cargar_catalogo()
+//    {
+//         MantenimientoCatalogos vrman = new MantenimientoCatalogos();
+//         
+//         
+//    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,187 +114,257 @@ Conexionsqlnetbeans cone = new Conexionsqlnetbeans();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bg = new javax.swing.JPanel();
-        Logo = new javax.swing.JLabel();
-        userTxt = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
-        passTxt = new javax.swing.JPasswordField();
-        jSeparator2 = new javax.swing.JSeparator();
-        loginBtn = new javax.swing.JPanel();
-        loginBtnTxt = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        BtnAgregar = new javax.swing.JButton();
+        BtnAgregar1 = new javax.swing.JButton();
+        BtnAgregar2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtdescripcion = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_detalle = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        Usuario = new javax.swing.JLabel();
-        Password = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
-        bg.setBackground(new java.awt.Color(255, 255, 255));
-        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/LogoSuperAutos.png"))); // NOI18N
-        bg.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 333, 374));
-
-        userTxt.setForeground(new java.awt.Color(153, 153, 153));
-        userTxt.setText("Ingrese su nombre de usuario");
-        userTxt.setBorder(null);
-        userTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                userTxtMousePressed(evt);
-            }
-        });
-        userTxt.addActionListener(new java.awt.event.ActionListener() {
+        BtnAgregar.setBackground(new java.awt.Color(2, 167, 63));
+        BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/Diskete3 35x35.png"))); // NOI18N
+        BtnAgregar.setText("Guardar");
+        BtnAgregar.setBorderPainted(false);
+        BtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnAgregar.setIconTextGap(8);
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userTxtActionPerformed(evt);
+                BtnAgregarActionPerformed(evt);
             }
         });
-        bg.add(userTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 410, 30));
 
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 410, 20));
-
-        passTxt.setForeground(new java.awt.Color(153, 153, 153));
-        passTxt.setText("********");
-        passTxt.setBorder(null);
-        passTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                passTxtMousePressed(evt);
+        BtnAgregar1.setBackground(new java.awt.Color(2, 167, 63));
+        BtnAgregar1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnAgregar1.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/Clean 35x35.png"))); // NOI18N
+        BtnAgregar1.setText("Limpiar");
+        BtnAgregar1.setBorderPainted(false);
+        BtnAgregar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnAgregar1.setIconTextGap(8);
+        BtnAgregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregar1ActionPerformed(evt);
             }
         });
-        bg.add(passTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 410, 30));
 
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, 410, 20));
+        BtnAgregar2.setBackground(new java.awt.Color(193, 82, 57));
+        BtnAgregar2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnAgregar2.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgregar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/Bin 35x35.png"))); // NOI18N
+        BtnAgregar2.setText("Eliminar");
+        BtnAgregar2.setBorderPainted(false);
+        BtnAgregar2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnAgregar2.setIconTextGap(8);
+        BtnAgregar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregar2ActionPerformed(evt);
+            }
+        });
 
-        loginBtn.setBackground(new java.awt.Color(0, 169, 62));
+        jLabel2.setText("Descripción:");
 
-        loginBtnTxt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        loginBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
-        loginBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        loginBtnTxt.setText("ENTRAR");
-        loginBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        loginBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtdescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdescripcionActionPerformed(evt);
+            }
+        });
+
+        tbl_detalle.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbl_detalle.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                loginBtnTxtMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                loginBtnTxtMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                loginBtnTxtMouseExited(evt);
+                tbl_detalleMouseClicked(evt);
             }
         });
+        jScrollPane1.setViewportView(tbl_detalle);
 
-        javax.swing.GroupLayout loginBtnLayout = new javax.swing.GroupLayout(loginBtn);
-        loginBtn.setLayout(loginBtnLayout);
-        loginBtnLayout.setHorizontalGroup(
-            loginBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginBtnTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 25)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Administrar Roles de Usuario");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnAgregar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnAgregar2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2))
+                .addContainerGap(279, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        loginBtnLayout.setVerticalGroup(
-            loginBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnAgregar2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
-
-        bg.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 130, 40));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 33)); // NOI18N
-        jLabel1.setText("LOGIN");
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
-
-        Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/User.png"))); // NOI18N
-        bg.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, -1, -1));
-
-        Password.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/Password.png"))); // NOI18N
-        bg.add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void userTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxtMousePressed
-        if (userTxt.getText().equals("Ingrese su nombre de usuario")) {
-            userTxt.setText("");
-            userTxt.setForeground(Color.black);
-        }
-        if (String.valueOf(passTxt.getPassword()).isEmpty()) {
-            passTxt.setText("********");
-            passTxt.setForeground(Color.gray);
-        }
-    }//GEN-LAST:event_userTxtMousePressed
-
-    private void passTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passTxtMousePressed
-        if (String.valueOf(passTxt.getPassword()).equals("********")) {
-            passTxt.setText("");
-            passTxt.setForeground(Color.black);
-        }
-        if (userTxt.getText().isEmpty()) {
-            userTxt.setText("Ingrese su nombre de usuario");
-            userTxt.setForeground(Color.gray);
-        }
-    }//GEN-LAST:event_passTxtMousePressed
-
-    private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
-          String usuario = userTxt.getText();
-    String clave = String.valueOf(passTxt.getPassword());
-
-   
-    if(usuario.isEmpty() || clave.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        
-        try {
-            String query = "SELECT * FROM USUARIOS WHERE CODIGO = ? AND CLAVE = ? AND ACTIVO = 1";
-            
-            Connection con = cone.obtenerconexion();
-
-        
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, usuario);  
-            ps.setString(2, clave);    
-
-          
-            ResultSet rs = ps.executeQuery();
-
-        
-            if(rs.next()) {
-                
-                Menu frmMenu = new Menu();
-                frmMenu.setVisible(true);  
-                this.setVisible(false);  
-            } else {
-               
-                userTxt.setText("");  
-                passTxt.setText("");  
-                JOptionPane.showMessageDialog(this, "Usuario o clave son incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error en la conexión a la base de datos: " + ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    }//GEN-LAST:event_loginBtnTxtMouseClicked
-
-    private void loginBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseEntered
-        loginBtn.setBackground(new Color(0, 156, 223));
-    }//GEN-LAST:event_loginBtnTxtMouseEntered
-
-    private void loginBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseExited
-        loginBtn.setBackground(new Color(0,134,190));
-    }//GEN-LAST:event_loginBtnTxtMouseExited
-
-    private void userTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTxtActionPerformed
+    private void txtdescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdescripcionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_userTxtActionPerformed
+    }//GEN-LAST:event_txtdescripcionActionPerformed
+
+    private void tbl_detalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_detalleMouseClicked
+        fila                    = tbl_detalle.getSelectedRow();
+        String vrdescripcion    = tbl_detalle.getValueAt(fila, 0).toString();
+        this.txtdescripcion.setText(vrdescripcion);
+        MantenimientoCatalogos vrman = new MantenimientoCatalogos();
+        codigo = vrman.obtener_id(vrtabla, vrdescripcion);
+    }//GEN-LAST:event_tbl_detalleMouseClicked
+
+    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que la descripción escrita está correcta?");
+        
+        if (respuesta == 0)
+        {
+            String vrdescripcion = this.txtdescripcion.getText();
+            boolean vrexiste ;
+
+            if (codigo == 0)
+            {
+                vrexiste = mtd_buscar(vrdescripcion, false);
+
+                if(vrexiste)
+                {   
+                    JOptionPane.showMessageDialog(this, "La descripción que escribió ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else
+            {
+                vrexiste = mtd_buscar(vrdescripcion, true);
+
+                if(vrexiste)
+                {
+                    JOptionPane.showMessageDialog(this, "La descripción que escribió ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            if(!vrexiste)
+            {
+                if("".equals(vrdescripcion)) {
+                    JOptionPane.showMessageDialog(this, "Por favor escriba una descripción", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+
+                    MantenimientoCatalogos vrman = new MantenimientoCatalogos();
+                    int vrresultado;
+
+                    if (codigo == 0)
+                    {
+                        vrresultado = MantenimientoCatalogos.ingresar(vrdescripcion, "SP_" + vrtabla);
+                    }
+                    else
+                    {
+                        vrresultado = MantenimientoCatalogos.modificar(codigo, vrdescripcion, "SP_" + vrtabla);
+                    }
+
+                    JOptionPane.showMessageDialog(this, "El ítem ha sido guardado correctamente", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+                    mtd_limpiar();
+                }
+            }
+        }
+//        man.mantenimientoClientes(
+//            0,
+//            CboCiudades.getSelectedIndex(),
+//            TxtNombre.getText(),
+//            TxtID.getText(),
+//            TxtTelefono.getText(),
+//            TxtCorreo.getText(),
+//            TxtDireccion.getText(),
+//            "agregar"
+//        );
+//
+//        JOptionPane.showMessageDialog(null, "Cliente registrado exitosamente");
+//        limpiarCampos();
+//
+//        man.cargarTablaClientes(jdetalle, 0, 0, "", "", "", "", "", "mostrar");
+
+    }//GEN-LAST:event_BtnAgregarActionPerformed
+
+    private void BtnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregar1ActionPerformed
+        mtd_limpiar();
+    }//GEN-LAST:event_BtnAgregar1ActionPerformed
+
+    private void BtnAgregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregar2ActionPerformed
+
+        if(codigo == 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un ítem de la lista", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el ítem seleccionado?");
+        
+            if (respuesta == 0)
+            {
+                MantenimientoCatalogos vrman = new MantenimientoCatalogos();
+
+                MantenimientoCatalogos.eliminar(codigo, "SP_" + vrtabla);
+
+                JOptionPane.showMessageDialog(this, "El ítem ha sido eliminado correctamente", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+                mtd_limpiar();
+            }
+        }
+    }//GEN-LAST:event_BtnAgregar2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,35 +383,36 @@ Conexionsqlnetbeans cone = new Conexionsqlnetbeans();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Roles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Roles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Roles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Roles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Roles().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Logo;
-    private javax.swing.JLabel Password;
-    private javax.swing.JLabel Usuario;
-    private javax.swing.JPanel bg;
+    private javax.swing.JButton BtnAgregar;
+    private javax.swing.JButton BtnAgregar1;
+    private javax.swing.JButton BtnAgregar2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JPanel loginBtn;
-    private javax.swing.JLabel loginBtnTxt;
-    private javax.swing.JPasswordField passTxt;
-    private javax.swing.JTextField userTxt;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbl_detalle;
+    private javax.swing.JTextField txtdescripcion;
     // End of variables declaration//GEN-END:variables
 }

@@ -91,6 +91,11 @@ int codigo;
         jLabel2.setText("Correo electrónico:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, -1, -1));
 
+        CboCiudades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CboCiudadesActionPerformed(evt);
+            }
+        });
         jPanel1.add(CboCiudades, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 190, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -384,6 +389,10 @@ if (!Validaciones.esSoloLetras(TxtNombre, "Nombre del Cliente") ||
      
      
     }//GEN-LAST:event_TxtBuscarKeyPressed
+
+    private void CboCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CboCiudadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CboCiudadesActionPerformed
 private void limpiarCampos() {
     
       TxtID.setText(""); 

@@ -56,23 +56,23 @@ public class Validaciones {
   public static boolean esSoloLetras(JTextField campo, String nombreCampo) {
     String texto = campo.getText();
  
-     if (!texto.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ\\s]+")) {
-        JOptionPane.showMessageDialog(null, "El campo " + nombreCampo + " solo puede contener letras, tildes y espacios.");
+     if (!texto.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]+")) {
+        JOptionPane.showMessageDialog(null, "El campo " + nombreCampo + " solo puede contener letras, tildes, ñ, Ñ y espacios.");
         return false;
     }
     return true;
    
 }
 
-    public static boolean esAlfanumerico(JTextField campo, String nombreCampo) {
-        String texto = campo.getText();
-       if (!texto.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ0-9\\s]+")) {
-        JOptionPane.showMessageDialog(null, "El campo " + nombreCampo + " solo puede contener letras, números, tildes y espacios.");
+  public static boolean esAlfanumerico(JTextField campo, String nombreCampo) {
+    String texto = campo.getText();
+   
+    if (!texto.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\\s]+")) {
+        JOptionPane.showMessageDialog(null, "El campo " + nombreCampo + " solo puede contener letras, números, tildes, y espacios.");
         return false;
     }
     return true;
-     
-    }
+}
 
     public static boolean esCorreoValido(JTextField campo, String nombreCampo) {
         String texto = campo.getText();
@@ -96,12 +96,12 @@ public class Validaciones {
    
 }
    
-    public static boolean esRtnValido(JTextField campo, String nombreCampo) {
-        String texto = campo.getText();
-        if (!texto.matches("[0-9]{14}")) {
-            JOptionPane.showMessageDialog(null, "El " + nombreCampo + " debe contener exactamente 14 dígitos numéricos.");
-            return false;
-        }
-        return true;
+   public static boolean esRtnValido(JTextField campo, String nombreCampo) {
+    String texto = campo.getText();
+    if (!texto.matches("\\d{1,14}")) {
+        JOptionPane.showMessageDialog(null, "El " + nombreCampo + " debe contener solo números (máximo 14 dígitos).");
+        return false;
     }
+    return true;
+}
 }

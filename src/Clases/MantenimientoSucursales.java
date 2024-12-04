@@ -82,5 +82,24 @@ public class MantenimientoSucursales {
         JOptionPane.showMessageDialog(null, "Error: " + ex.toString());
     }
 }
+       
+       public boolean verificarCodigoExistente(int codigo) {
+    try {
+        Connection con = cone.obtenerconexion();
+        String query = "SELECT COUNT(*) FROM SUCURSALES WHERE ID = ?";  
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.setInt(1, codigo);  
+        ResultSet rs = pst.executeQuery();
+        
+        if (rs.next()) {
+            int count = rs.getInt(1);  
+            return count > 0;  
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al verificar el código: " + ex.getMessage());
+    }
+    return false;  
+}
+
 
 }

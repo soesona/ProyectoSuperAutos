@@ -17,7 +17,7 @@ import java.sql.*;
  */
 public class Conexionsqlnetbeans {
     Connection conexion = null;
-    String usuario = "userfinal";
+    String usuario = "localhost";
     String clave ="dbo";
     String db = "SuperAutos";
     String puerto = "1433";

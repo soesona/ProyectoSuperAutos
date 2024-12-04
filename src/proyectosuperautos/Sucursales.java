@@ -195,6 +195,12 @@ int codigo;
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 70, -1));
         jPanel1.add(TxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 140, 218, -1));
         jPanel1.add(TxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 218, 60));
+
+        TxtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtNombreActionPerformed(evt);
+            }
+        });
         jPanel1.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 218, -1));
         jPanel1.add(TxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 218, -1));
 
@@ -376,6 +382,10 @@ if (!Validaciones.esSoloLetras(TxtNombre, "Nombre del Cliente") ||
         }
 
     }//GEN-LAST:event_TxtBuscarKeyPressed
+
+    private void TxtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtNombreActionPerformed
 private void limpiarCampos() {
     
   

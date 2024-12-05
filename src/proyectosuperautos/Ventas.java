@@ -4,18 +4,79 @@
  */
 package proyectosuperautos;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+import Clases.Conexionsqlnetbeans;
+// Librerías para la conexión a la base de datos
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+// Librerías para mostrar mensajes
+import javax.swing.JOptionPane;
+
+// Librerías para manejar componentes de la interfaz
+import javax.swing.table.DefaultTableModel;  // Manejo de JTable (para mostrar datos en tablas)
+import javax.swing.JComboBox;               // Manejo de JComboBox dinámico
+import javax.swing.event.DocumentEvent;     // Para detectar cambios en JTextField
+import javax.swing.event.DocumentListener;  // Escucha eventos en JTextField
+
+// Librerías para manejar eventos
+import java.awt.event.ActionEvent;          // Eventos de botones (ActionEvent)
+import java.awt.event.ActionListener;       // Listener para los botones
+import java.awt.event.KeyAdapter;           // Eventos de teclado
+import java.awt.event.KeyEvent;             // Eventos de tecla presionada
+
+// Librerías para manejo de excepciones generales (opcional)
+import java.lang.Exception;
+
+
+
+
 /**
  *
  * @author aleja
  */
 public class Ventas extends javax.swing.JFrame {
+    
+    
 
     /**
      * Creates new form Ventas
      */
     public Ventas() {
         initComponents();
+        llenarComboBoxVehiculos();
     }
+    
+    Conexionsqlnetbeans conexion = new Conexionsqlnetbeans();
+    Connection con = conexion.obtenerconexion();
+
+    private void llenarComboBoxVehiculos() {
+    try (Connection conexion = Conexionsqlnetbeans.conectar()) {
+        String sql = "SELECT ID, VIN FROM VEHICULOS";
+        java.sql.Statement stmt = conexion.createStatement();
+        java.sql.ResultSet rs = stmt.executeQuery(sql);
+
+        cmbVehiculo.removeAllItems();
+        while (rs.next()) {
+            String item = rs.getInt("ID") + " - " + rs.getString("VIN");
+            cmbVehiculo.addItem(item);
+        }
+    } catch (Exception e) {
+        System.err.println("Error al llenar comboBox de vehículos: " + e.getMessage());
+    }
+}
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,14 +117,26 @@ public class Ventas extends javax.swing.JFrame {
         txtModelo = new javax.swing.JTextField();
         txtPlaca = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        btnGuardarCompra = new javax.swing.JButton();
+        btnGuardarRenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         btnCompra.setText("COMPRA");
+        btnCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompraActionPerformed(evt);
+            }
+        });
 
         btnRenta.setText("RENTA");
+        btnRenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRentaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nombre:");
 
@@ -89,9 +162,20 @@ public class Ventas extends javax.swing.JFrame {
 
         jLabel10.setText("Valor Renta Diaria:");
 
+        txtRentaDiaria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRentaDiariaActionPerformed(evt);
+            }
+        });
+
         jLabel11.setText("Cantidad Días");
 
         txtCantidadDias.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCantidadDias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadDiasActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("Valor Vehículo:");
 
@@ -105,6 +189,20 @@ public class Ventas extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel14.setText("VENTAS SUPERAUTOS");
+
+        btnGuardarCompra.setText("Guardar Compra");
+        btnGuardarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarCompraActionPerformed(evt);
+            }
+        });
+
+        btnGuardarRenta.setText("Guardar Renta");
+        btnGuardarRenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRentaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -152,24 +250,31 @@ public class Ventas extends javax.swing.JFrame {
                                 .addGap(165, 165, 165))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(cmbVehiculo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(67, 67, 67)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtCantidadDias)
+                                            .addComponent(jLabel11)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cmbVehiculo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(67, 67, 67)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCantidadDias)
-                                    .addComponent(jLabel11))))))
+                                        .addComponent(btnGuardarCompra)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnGuardarRenta)
+                                        .addGap(28, 28, 28)))))))
                 .addGap(81, 81, 81))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -247,7 +352,11 @@ public class Ventas extends javax.swing.JFrame {
                             .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardarCompra)
+                            .addComponent(btnGuardarRenta))))
                 .addGap(84, 84, 84))
         );
 
@@ -264,6 +373,223 @@ public class Ventas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraActionPerformed
+        // TODO add your handling code here:
+        
+    txtCantidadDias.setEnabled(false);
+    txtRentaDiaria.setEnabled(false);
+    txtValorTotal.setEnabled(true);
+    txtValorTotal.setText(txtValorVehiculo.getText());
+        
+    }//GEN-LAST:event_btnCompraActionPerformed
+
+    private void guardarRenta() {
+    // Obtén los datos del cliente
+    String nombreCliente = txtNombre.getText();
+    String rtn = txtRTN.getText();
+    String telefono = txtTelefono.getText();
+    String correo = txtCorreo.getText();
+
+    // Obtén los datos del vehículo
+    String vehiculoSeleccionado = (String) cmbVehiculo.getSelectedItem();
+    int idVehiculo = Integer.parseInt(vehiculoSeleccionado.split(" - ")[0]); // Extraer el ID del vehículo
+    double rentaDiaria = Double.parseDouble(txtRentaDiaria.getText()); // Renta diaria del vehículo
+    int cantidadDias = Integer.parseInt(txtCantidadDias.getText()); // Cantidad de días de renta
+
+    // Calcular el total
+    double total = rentaDiaria * cantidadDias;
+
+    try (Connection conexion = new Conexionsqlnetbeans().obtenerconexion()) {
+        // Paso 1: Guardar al cliente (puedes omitir si el cliente ya existe en la base de datos)
+        String sqlCliente = "INSERT INTO CLIENTES (NOMBRE, RTN, TELEFONO, CORREO) VALUES (?, ?, ?, ?)";
+        PreparedStatement pstCliente = conexion.prepareStatement(sqlCliente, Statement.RETURN_GENERATED_KEYS);
+        pstCliente.setString(1, nombreCliente);
+        pstCliente.setString(2, rtn);
+        pstCliente.setString(3, telefono);
+        pstCliente.setString(4, correo);
+        pstCliente.executeUpdate();
+
+        // Obtener el ID del cliente recién insertado
+        ResultSet rsCliente = pstCliente.getGeneratedKeys();
+        int idCliente = 0;
+        if (rsCliente.next()) {
+            idCliente = rsCliente.getInt(1);
+        }
+
+        // Paso 2: Guardar la factura (renta)
+        String sqlFactura = "INSERT INTO FACTURAS (ID_CLIENTE, ID_TIPO, FECHA, NUMERO, TOTAL) VALUES (?, ?, GETDATE(), ?, ?)";
+        PreparedStatement pstFactura = conexion.prepareStatement(sqlFactura, Statement.RETURN_GENERATED_KEYS);
+        pstFactura.setInt(1, idCliente); // ID del cliente
+        pstFactura.setInt(2, 2); // Tipo de factura: 2 = Renta
+        pstFactura.setString(3, "RENTA-" + System.currentTimeMillis()); // Número único para la factura
+        pstFactura.setDouble(4, total); // Total
+        pstFactura.executeUpdate();
+
+        // Obtener el ID de la factura recién insertada
+        ResultSet rsFactura = pstFactura.getGeneratedKeys();
+        int idFactura = 0;
+        if (rsFactura.next()) {
+            idFactura = rsFactura.getInt(1);
+        }
+
+        // Paso 3: Guardar el detalle de la factura
+        String sqlDetalle = "INSERT INTO FACTURAS_DETALLE (ID_FACTURA, ID_VEHICULO, CANTIDAD, PRECIO_COSTO, PRECIO_VENTA, GARANTIA, ENTREGA_PROGRAMADA) VALUES (?, ?, ?, ?, ?, ?, DATEADD(DAY, ?, GETDATE()))";
+        PreparedStatement pstDetalle = conexion.prepareStatement(sqlDetalle);
+        pstDetalle.setInt(1, idFactura); // ID de la factura
+        pstDetalle.setInt(2, idVehiculo); // ID del vehículo
+        pstDetalle.setInt(3, 1); // Cantidad (siempre 1 para rentas de vehículos)
+        pstDetalle.setDouble(4, 0.0); // Precio de costo (puedes ajustar según tu base de datos)
+        pstDetalle.setDouble(5, total); // Precio de renta total
+        pstDetalle.setInt(6, 0); // Garantía (ajusta si tienes un valor para esto)
+        pstDetalle.setInt(7, cantidadDias); // Días para calcular la fecha de entrega
+        pstDetalle.executeUpdate();
+
+        // Confirmar éxito
+        JOptionPane.showMessageDialog(this, "Renta registrada correctamente.");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al registrar la renta: " + e.getMessage());
+    }
+}
+
+
+    
+    
+    private void btnRentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentaActionPerformed
+        // TODO add your handling code here:
+        
+        // Habilitar campos necesarios para una renta
+    txtCantidadDias.setEnabled(true);
+    txtRentaDiaria.setEnabled(true);
+    txtValorTotal.setEnabled(false);
+
+    // Agregar listener para calcular automáticamente el total
+    txtCantidadDias.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            calcularTotalRenta();
+        }
+    });
+
+    txtRentaDiaria.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            calcularTotalRenta();
+        }
+    });
+}
+
+// Método para calcular el total en una renta
+    private void calcularTotalRenta() {
+    try {
+        int dias = Integer.parseInt(txtCantidadDias.getText());
+        double rentaDiaria = Double.parseDouble(txtRentaDiaria.getText());
+        double total = dias * rentaDiaria;
+        txtValorTotal.setText(String.valueOf(total));
+    } catch (NumberFormatException e) {
+        // Manejo de error por entrada inválida
+        txtValorTotal.setText("0");
+    }
+    
+        
+    }//GEN-LAST:event_btnRentaActionPerformed
+    
+private void guardarCompra() {
+    // Obtén los datos del cliente
+    String nombreCliente = txtNombre.getText();
+    String rtn = txtRTN.getText();
+    String telefono = txtTelefono.getText();
+    String correo = txtCorreo.getText();
+
+    // Obtén los datos del vehículo
+    String vehiculoSeleccionado = (String) cmbVehiculo.getSelectedItem();
+    int idVehiculo = Integer.parseInt(vehiculoSeleccionado.split(" - ")[0]); // Extraer el ID del vehículo
+    double valorVehiculo = Double.parseDouble(txtValorVehiculo.getText()); // Total del vehículo
+
+    try (Connection conexion = new Conexionsqlnetbeans().obtenerconexion()) {
+        // Paso 1: Guardar al cliente (puedes omitir si el cliente ya existe en la base de datos)
+        String sqlCliente = "INSERT INTO CLIENTES (NOMBRE, RTN, TELEFONO, CORREO) VALUES (?, ?, ?, ?)";
+        PreparedStatement pstCliente = conexion.prepareStatement(sqlCliente, Statement.RETURN_GENERATED_KEYS);
+        pstCliente.setString(1, nombreCliente);
+        pstCliente.setString(2, rtn);
+        pstCliente.setString(3, telefono);
+        pstCliente.setString(4, correo);
+        pstCliente.executeUpdate();
+
+        // Obtener el ID del cliente recién insertado
+        ResultSet rsCliente = pstCliente.getGeneratedKeys();
+        int idCliente = 0;
+        if (rsCliente.next()) {
+            idCliente = rsCliente.getInt(1);
+        }
+
+        // Paso 2: Guardar la factura (venta)
+        String sqlFactura = "INSERT INTO FACTURAS (ID_CLIENTE, ID_TIPO, FECHA, NUMERO, TOTAL) VALUES (?, ?, GETDATE(), ?, ?)";
+        PreparedStatement pstFactura = conexion.prepareStatement(sqlFactura, Statement.RETURN_GENERATED_KEYS);
+        pstFactura.setInt(1, idCliente); // ID del cliente
+        pstFactura.setInt(2, 1); // Tipo de factura: 1 = Venta
+        pstFactura.setString(3, "VENTA-" + System.currentTimeMillis()); // Número único para la factura
+        pstFactura.setDouble(4, valorVehiculo); // Total
+        pstFactura.executeUpdate();
+
+        // Obtener el ID de la factura recién insertada
+        ResultSet rsFactura = pstFactura.getGeneratedKeys();
+        int idFactura = 0;
+        if (rsFactura.next()) {
+            idFactura = rsFactura.getInt(1);
+        }
+
+        // Paso 3: Guardar el detalle de la factura
+        String sqlDetalle = "INSERT INTO FACTURAS_DETALLE (ID_FACTURA, ID_VEHICULO, CANTIDAD, PRECIO_COSTO, PRECIO_VENTA) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement pstDetalle = conexion.prepareStatement(sqlDetalle);
+        pstDetalle.setInt(1, idFactura); // ID de la factura
+        pstDetalle.setInt(2, idVehiculo); // ID del vehículo
+        pstDetalle.setInt(3, 1); // Cantidad (siempre 1 para ventas de vehículos)
+        pstDetalle.setDouble(4, 0.0); // Precio de costo (puedes ajustar según tu base de datos)
+        pstDetalle.setDouble(5, valorVehiculo); // Precio de venta
+        pstDetalle.executeUpdate();
+
+        // Confirmar éxito
+        JOptionPane.showMessageDialog(this, "Compra registrada correctamente.");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al registrar la compra: " + e.getMessage());
+    }
+}
+
+
+
+    private void btnGuardarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCompraActionPerformed
+        // TODO add your handling code here:
+        
+    guardarCompra();
+
+
+        
+    }//GEN-LAST:event_btnGuardarCompraActionPerformed
+
+    private void btnGuardarRentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRentaActionPerformed
+        // TODO add your handling code here:
+        
+        
+        guardarRenta();
+    }//GEN-LAST:event_btnGuardarRentaActionPerformed
+
+    private void txtCantidadDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadDiasActionPerformed
+        // TODO add your handling code here:
+        
+        txtCantidadDias.addKeyListener(new java.awt.event.KeyAdapter() {
+    public void keyReleased(java.awt.event.KeyEvent evt) {
+        calcularTotalRenta();
+    }
+});
+    }//GEN-LAST:event_txtCantidadDiasActionPerformed
+
+    private void txtRentaDiariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRentaDiariaActionPerformed
+        // TODO add your handling code here:}}
+        txtRentaDiaria.addKeyListener(new java.awt.event.KeyAdapter() {
+    public void keyReleased(java.awt.event.KeyEvent evt) {
+        calcularTotalRenta();
+    }
+});
+    }//GEN-LAST:event_txtRentaDiariaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,6 +628,8 @@ public class Ventas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompra;
+    private javax.swing.JButton btnGuardarCompra;
+    private javax.swing.JButton btnGuardarRenta;
     private javax.swing.JButton btnRenta;
     private javax.swing.JComboBox<String> cmbVehiculo;
     private javax.swing.JButton jButton3;

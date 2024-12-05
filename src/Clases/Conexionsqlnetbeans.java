@@ -15,17 +15,19 @@ import java.sql.*;
  *
  * @author Sthefany
  */
-public class Conexionsqlnetbeans {
+/*public class Conexionsqlnetbeans {
     Connection conexion = null;
-    String usuario = "localhost";
-    String clave ="31468";
-    String db = "SuperAutos";
+    String usuario = "admin2";
+    String clave ="password";
+    String db = "SuperAutos33";
     
     
      public Connection obtenerconexion() 
 {
     try {
-        String cadena = "jdbc:sqlserver://localhost;databaseName=SuperAutos;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
+        /*String cadena = "jdbc:sqlserver://localhost;databaseName=SuperAutos33;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";*/
+        
+        /*String cadena = "jdbc:sqlserver://localhost:1433;databaseName=SuperAutos33;user=admin2;password=password;encrypt=true;trustServerCertificate=true";
         
         conexion = DriverManager.getConnection(cadena);
        
@@ -35,5 +37,24 @@ public class Conexionsqlnetbeans {
     return conexion;
 }
 
-}
+}*/
 
+
+public class Conexionsqlnetbeans {
+
+    public static Connection conectar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    Connection conexion = null;
+
+    public Connection obtenerconexion() {
+        try {
+            String cadena = "jdbc:sqlserver://localhost:1433;databaseName=SuperAutos33;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
+            conexion = DriverManager.getConnection(cadena);
+            System.out.println("Conexión exitosa a la base de datos.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.toString());
+        }
+        return conexion;
+    }
+}

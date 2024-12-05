@@ -4,18 +4,47 @@
  */
 package proyectosuperautos;
 
+// Librerías para conexión a la base de datos
+import Clases.Conexionsqlnetbeans;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+// Librerías para manejar la tabla y su modelo
+import javax.swing.table.DefaultTableModel;
+
+// Librerías para mostrar mensajes en cuadros de diálogo
+import javax.swing.JOptionPane;
+
+// Librerías para manejar eventos de la interfaz gráfica (botones, combos, etc.)
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
 /**
  *
  * @author aleja
  */
 public class Proveedores extends javax.swing.JFrame {
-
+    
+    
+    
+    
     /**
      * Creates new form Empleados
      */
     public Proveedores() {
         initComponents();
+        mostrarProveedores();
+       llenarComboBoxCiudades();
     }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -279,21 +308,158 @@ public class Proveedores extends javax.swing.JFrame {
     private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbEstadoActionPerformed
+        
+    private void llenarComboBoxCiudades() {
+    try (Connection conexion = new Conexionsqlnetbeans().obtenerconexion();
+         Statement stmt = conexion.createStatement();
+         ResultSet rs = stmt.executeQuery("SELECT ID, DESCRIPCION FROM CIUDADES")) {
 
+        cmbCiudad.removeAllItems();
+        while (rs.next()) {
+            cmbCiudad.addItem(rs.getInt("ID") + " - " + rs.getString("DESCRIPCION"));
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al cargar ciudades: " + e.getMessage());
+    }
+}
+
+        
+    
+    
+    private void agregarProveedor() {
+    String nombre = txtProveedor.getText();
+    String rtn = txtRtn.getText();
+    String telefono = txtTelefono.getText();
+    String correo = txtCorreo.getText();
+    String direccion = txtDireccion.getText();
+    boolean activo = cbEstado.isSelected();
+    String ciudadSeleccionada = (String) cmbCiudad.getSelectedItem();
+    int idCiudad = Integer.parseInt(ciudadSeleccionada.split(" - ")[0]); // Extraer el ID de la ciudad
+
+    String sql = "INSERT INTO PROVEEDORES (ID_CIUDAD, NOMBRE, RTN, TELEFONO, CORREO, DIRECCION, ACTIVO) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    try (Connection conexion = new Conexionsqlnetbeans().obtenerconexion();
+         PreparedStatement pst = conexion.prepareStatement(sql)) {
+
+        pst.setInt(1, idCiudad);
+        pst.setString(2, nombre);
+        pst.setString(3, rtn);
+        pst.setString(4, telefono);
+        pst.setString(5, correo);
+        pst.setString(6, direccion);
+        pst.setBoolean(7, activo);
+
+        pst.executeUpdate();
+        JOptionPane.showMessageDialog(this, "Proveedor agregado correctamente.");
+        mostrarProveedores(); // Actualizar la tabla
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al agregar proveedor: " + e.getMessage());
+    }
+}
+
+    private void mostrarProveedores() {
+    DefaultTableModel modelo = (DefaultTableModel) tablaProveedores.getModel();
+    modelo.setRowCount(0); // Limpiar la tabla
+
+    String sql = "SELECT p.ID, p.NOMBRE, p.RTN, p.TELEFONO, p.CORREO, p.ACTIVO, c.DESCRIPCION AS CIUDAD " +
+                 "FROM PROVEEDORES p " +
+                 "JOIN CIUDADES c ON p.ID_CIUDAD = c.ID";
+
+    try (Connection conexion = new Conexionsqlnetbeans().obtenerconexion();
+         Statement stmt = conexion.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+
+        while (rs.next()) {
+            modelo.addRow(new Object[]{
+                rs.getString("NOMBRE"),
+                rs.getString("RTN"),
+                rs.getString("TELEFONO"),
+                rs.getString("CORREO"),
+                rs.getBoolean("ACTIVO") ? "Activo" : "Inactivo",
+                rs.getString("CIUDAD")
+            });
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al cargar proveedores: " + e.getMessage());
+    }
+}
+
+    
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnBuscarActionPerformed
+    private void actualizarProveedor() {
+    int filaSeleccionada = tablaProveedores.getSelectedRow();
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Selecciona un proveedor para actualizar.");
+        return;
+    }
+
+    String nombre = txtProveedor.getText();
+    String rtn = txtRtn.getText();
+    String telefono = txtTelefono.getText();
+    String correo = txtCorreo.getText();
+    String direccion = txtDireccion.getText();
+    boolean activo = cbEstado.isSelected();
+    String ciudadSeleccionada = (String) cmbCiudad.getSelectedItem();
+    int idCiudad = Integer.parseInt(ciudadSeleccionada.split(" - ")[0]); // Extraer el ID de la ciudad
+
+    String idProveedor = (String) tablaProveedores.getValueAt(filaSeleccionada, 0); // Suponiendo que la primera columna es el ID
+
+    String sql = "UPDATE PROVEEDORES SET ID_CIUDAD = ?, NOMBRE = ?, RTN = ?, TELEFONO = ?, CORREO = ?, DIRECCION = ?, ACTIVO = ? WHERE ID = ?";
+    try (Connection conexion = new Conexionsqlnetbeans().obtenerconexion();
+         PreparedStatement pst = conexion.prepareStatement(sql)) {
+
+        pst.setInt(1, idCiudad);
+        pst.setString(2, nombre);
+        pst.setString(3, rtn);
+        pst.setString(4, telefono);
+        pst.setString(5, correo);
+        pst.setString(6, direccion);
+        pst.setBoolean(7, activo);
+        pst.setInt(8, Integer.parseInt(idProveedor));
+
+        pst.executeUpdate();
+        JOptionPane.showMessageDialog(this, "Proveedor actualizado correctamente.");
+        mostrarProveedores(); // Actualizar la tabla
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar proveedor: " + e.getMessage());
+    }
+}
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+        
+    agregarProveedor();
+
 
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-
+        actualizarProveedor();
     }//GEN-LAST:event_BtnActualizarActionPerformed
+    private void eliminarProveedor() {
+    int filaSeleccionada = tablaProveedores.getSelectedRow();
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Selecciona un proveedor para eliminar.");
+        return;
+    }
+
+    String idProveedor = (String) tablaProveedores.getValueAt(filaSeleccionada, 0); // Suponiendo que la primera columna es el ID
+
+    String sql = "DELETE FROM PROVEEDORES WHERE ID = ?";
+    try (Connection conexion = new Conexionsqlnetbeans().obtenerconexion();
+         PreparedStatement pst = conexion.prepareStatement(sql)) {
+
+        pst.setInt(1, Integer.parseInt(idProveedor));
+        pst.executeUpdate();
+        JOptionPane.showMessageDialog(this, "Proveedor eliminado correctamente.");
+        mostrarProveedores(); // Actualizar la tabla
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al eliminar proveedor: " + e.getMessage());
+    }
+}
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-
+        eliminarProveedor();
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     /**

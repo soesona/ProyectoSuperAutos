@@ -4,6 +4,40 @@
  */
 package proyectosuperautos;
 
+import Clases.CRUDVehiculos;
+import Clases.Vehiculo;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Clases.Conexionsqlnetbeans;
+import com.sun.jdi.connect.spi.Connection;
+// Librerías para la conexión a la base de datos
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+// Librerías para mostrar mensajes
+import javax.swing.JOptionPane;
+
+// Librerías para manejar componentes de la interfaz
+import javax.swing.table.DefaultTableModel;  // Manejo de JTable (para mostrar datos en tablas)
+import javax.swing.JComboBox;               // Manejo de JComboBox dinámico
+import javax.swing.event.DocumentEvent;     // Para detectar cambios en JTextField
+import javax.swing.event.DocumentListener;  // Escucha eventos en JTextField
+
+// Librerías para manejar eventos
+import java.awt.event.ActionEvent;          // Eventos de botones (ActionEvent)
+import java.awt.event.ActionListener;       // Listener para los botones
+import java.awt.event.KeyAdapter;           // Eventos de teclado
+import java.awt.event.KeyEvent;             // Eventos de tecla presionada
+
+// Librerías para manejo de excepciones generales (opcional)
+import java.lang.Exception;
+
+
+
 /**
  *
  * @author aleja
@@ -16,6 +50,8 @@ public class Vehiculos extends javax.swing.JFrame {
     public Vehiculos() {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,6 +64,30 @@ public class Vehiculos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtPlaca = new javax.swing.JTextField();
+        txtAnoFabricacion = new javax.swing.JTextField();
+        txtAnoMatricula = new javax.swing.JTextField();
+        BtnAgregar = new javax.swing.JButton();
+        BtnActualizar = new javax.swing.JButton();
+        BtnEliminar = new javax.swing.JButton();
+        BtnBuscar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaDetalle = new javax.swing.JTable();
+        txtMarca = new javax.swing.JTextField();
+        txtTipoVehiculo = new javax.swing.JTextField();
+        txtTransmision = new javax.swing.JTextField();
+        txtMotor = new javax.swing.JTextField();
+        txtColor = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtPrecioVenta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,21 +97,221 @@ public class Vehiculos extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("VEHICULOS");
 
+        jLabel2.setText("Placa:");
+
+        jLabel3.setText("Marca:");
+
+        jLabel4.setText("Tipo de Vehículo:");
+
+        jLabel5.setText("Año de fabricación:");
+
+        jLabel6.setText("Transmisión");
+
+        jLabel7.setText("Motor");
+
+        jLabel8.setText("Color");
+
+        jLabel9.setText("Año de matricula");
+
+        BtnAgregar.setBackground(new java.awt.Color(2, 167, 63));
+        BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/AggIcon.png"))); // NOI18N
+        BtnAgregar.setText("Agregar");
+        BtnAgregar.setBorderPainted(false);
+        BtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnAgregar.setIconTextGap(8);
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarActionPerformed(evt);
+            }
+        });
+
+        BtnActualizar.setBackground(new java.awt.Color(2, 167, 63));
+        BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/ActualizarIcon.png"))); // NOI18N
+        BtnActualizar.setText("Actualizar");
+        BtnActualizar.setBorder(null);
+        BtnActualizar.setBorderPainted(false);
+        BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnActualizar.setIconTextGap(8);
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarActionPerformed(evt);
+            }
+        });
+
+        BtnEliminar.setBackground(new java.awt.Color(193, 82, 57));
+        BtnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/EliminarIcon.png"))); // NOI18N
+        BtnEliminar.setText("Eliminar");
+        BtnEliminar.setBorderPainted(false);
+        BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnEliminar.setIconTextGap(8);
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
+
+        BtnBuscar.setBackground(new java.awt.Color(133, 133, 133));
+        BtnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RecursosImagenes/BuscarIcon.png"))); // NOI18N
+        BtnBuscar.setText("Buscar");
+        BtnBuscar.setBorderPainted(false);
+        BtnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnBuscar.setIconTextGap(8);
+        BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarActionPerformed(evt);
+            }
+        });
+
+        tablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Telefono", "Correo", "Direccion", "Ciudad"
+            }
+        ));
+        tablaDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaDetalleMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tablaDetalle);
+
+        jLabel10.setText("Venta");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(406, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(427, 427, 427)
                 .addComponent(jLabel1)
-                .addGap(404, 404, 404))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2))
+                                .addGap(44, 44, 44)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTipoVehiculo)
+                                    .addComponent(txtMarca)
+                                    .addComponent(txtPlaca)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel10))
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtAnoFabricacion))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel9))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel8)))))
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtMotor)
+                                .addGap(156, 156, 156))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtTransmision)
+                                        .addGap(85, 85, 85))
+                                    .addComponent(txtAnoMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtColor)
+                                .addContainerGap())))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addContainerGap(560, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtTransmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMotor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4)
+                                .addComponent(txtTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtAnoFabricacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9)
+                                .addComponent(txtAnoMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(BtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(BtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -67,6 +327,180 @@ public class Vehiculos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+        CRUDVehiculos crud = new CRUDVehiculos();
+    Vehiculo vehiculo = new Vehiculo();
+
+    vehiculo.setIdMarca(Integer.parseInt(txtMarca.getText()));
+
+    vehiculo.setIdTipoVehiculo(Integer.parseInt(txtTipoVehiculo.getText()));
+    vehiculo.setIdTipoTransmision(Integer.parseInt(txtTransmision.getText()));
+    vehiculo.setIdTipoMotor(Integer.parseInt(txtMotor.getText()));
+    vehiculo.setColor(txtColor.getText());
+    vehiculo.setAnioFabricacion(Integer.parseInt(txtAnoFabricacion.getText()));
+    vehiculo.setPlaca(txtPlaca.getText());
+    vehiculo.setAnioMatricula(Integer.parseInt(txtAnoMatricula.getText()));
+   
+    vehiculo.setPrecioVenta(Double.parseDouble(txtPrecioVenta.getText()));
+    
+    
+
+    if (crud.agregarVehiculo(vehiculo)) {
+        JOptionPane.showMessageDialog(null, "Vehículo agregado exitosamente.");
+    } else {
+        JOptionPane.showMessageDialog(null, "Error al agregar vehículo.");
+    }
+        
+    }//GEN-LAST:event_BtnAgregarActionPerformed
+    
+    public void insertarVehiculo(String placa, int idMarca, int idTipoVehiculo, int anioFabricacion, int idTransmision, int idMotor, String color, int anioMatricula, double precioVenta) {
+    Conexionsqlnetbeans conexion = new Conexionsqlnetbeans();
+        java.sql.Connection con = conexion.obtenerconexion();
+
+    String sql = "INSERT INTO VEHICULOS (PLACA, ID_MARCA, ID_TIPO_VEHICULO, ANIO_FABRICACION, ID_TIPO_TRANSMISION, ID_TIPO_MOTOR, COLOR, ANIO_MATRICULA, PRECIO_VENTA) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    try (PreparedStatement pst = con.prepareStatement(sql)) {
+        pst.setString(1, placa);
+        pst.setInt(2, idMarca);
+        pst.setInt(3, idTipoVehiculo);
+        pst.setInt(4, anioFabricacion);
+        pst.setInt(5, idTransmision);
+        pst.setInt(6, idMotor);
+        pst.setString(7, color);
+        pst.setInt(8, anioMatricula);
+        pst.setDouble(9, precioVenta);
+        pst.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Vehículo insertado correctamente.");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al insertar vehículo: " + e.getMessage());
+    }
+}
+
+    
+    
+    Conexionsqlnetbeans conexion = new Conexionsqlnetbeans();
+    
+
+    
+    private void mostrarVehiculosEnTabla() {
+    CRUDVehiculos crud = new CRUDVehiculos();
+    List<Vehiculo> listaVehiculos = crud.listarVehiculos(); // Obtener lista de vehículos
+
+    // Crear modelo de tabla
+    String[] columnas = {"Marca", "Proveedor", "Tipo Vehículo", "Transmisión", "Motor", "VIN", "Color", "Año Fabricación", "Placa", "Año Matrícula", "Costo", "Venta"};
+    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+
+    // Agregar datos al modelo
+    for (Vehiculo vehiculo : listaVehiculos) {
+        Object[] fila = {
+            vehiculo.getIdMarca(),
+            vehiculo.getIdProveedor(),
+            vehiculo.getIdTipoVehiculo(),
+            vehiculo.getIdTipoTransmision(),
+            vehiculo.getIdTipoMotor(),
+            vehiculo.getVin(),
+            vehiculo.getColor(),
+            vehiculo.getAnioFabricacion(),
+            vehiculo.getPlaca(),
+            vehiculo.getAnioMatricula(),
+            vehiculo.getPrecioCosto(),
+            vehiculo.getPrecioVenta()
+        };
+        modelo.addRow(fila);
+    }
+
+    // Establecer modelo en tablaDetalle
+    tablaDetalle.setModel(modelo);
+}
+
+    
+    
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+        
+       
+    CRUDVehiculos crud = new CRUDVehiculos();
+    Vehiculo vehiculo = new Vehiculo();
+
+    vehiculo.setIdMarca(Integer.parseInt(txtMarca.getText()));
+   
+    vehiculo.setIdTipoVehiculo(Integer.parseInt(txtTipoVehiculo.getText()));
+    vehiculo.setIdTipoTransmision(Integer.parseInt(txtTransmision.getText()));
+    vehiculo.setIdTipoMotor(Integer.parseInt(txtMotor.getText()));
+  
+    vehiculo.setColor(txtColor.getText());
+    vehiculo.setAnioFabricacion(Integer.parseInt(txtAnoFabricacion.getText()));
+    vehiculo.setPlaca(txtPlaca.getText());
+    vehiculo.setAnioMatricula(Integer.parseInt(txtAnoMatricula.getText()));
+  
+    vehiculo.setPrecioVenta(Double.parseDouble(txtPrecioVenta.getText()));
+
+    if (crud.actualizarVehiculo(vehiculo)) {
+        JOptionPane.showMessageDialog(null, "Vehículo actualizado exitosamente.");
+    } else {
+        JOptionPane.showMessageDialog(null, "Error al actualizar vehículo.");
+    }
+
+        
+    }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+    
+        
+        CRUDVehiculos crud = new CRUDVehiculos();
+    String placa = txtPlaca.getText(); // Obtenemos el valor de la placa
+
+    if (placa.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Por favor, ingresa una placa válida.");
+        return;
+    }
+
+    if (crud.eliminarVehiculoPorPlaca(placa)) {
+        JOptionPane.showMessageDialog(null, "Vehículo eliminado exitosamente.");
+    } else {
+        JOptionPane.showMessageDialog(null, "Error: No se pudo eliminar el vehículo. Verifica la placa.");
+    }
+        
+        
+        
+        
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
+        // TODO add your handling code here:
+           CRUDVehiculos crud = new CRUDVehiculos();
+    String placa = txtPlaca.getText(); // Obtenemos la placa para buscar
+
+    if (placa.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Por favor, ingresa una placa para buscar.");
+        return;
+    }
+
+    Vehiculo encontrado = crud.buscarVehiculoPorPlaca(placa);
+
+    if (encontrado != null) {
+        txtMarca.setText(String.valueOf(encontrado.getIdMarca()));
+
+        txtTipoVehiculo.setText(String.valueOf(encontrado.getIdTipoVehiculo()));
+        txtTransmision.setText(String.valueOf(encontrado.getIdTipoTransmision()));
+        txtMotor.setText(String.valueOf(encontrado.getIdTipoMotor()));
+
+        txtColor.setText(encontrado.getColor());
+        txtAnoFabricacion.setText(String.valueOf(encontrado.getAnioFabricacion()));
+        txtAnoMatricula.setText(String.valueOf(encontrado.getAnioMatricula()));
+
+        txtPrecioVenta.setText(String.valueOf(encontrado.getPrecioVenta()));
+    } else {
+        JOptionPane.showMessageDialog(null, "Vehículo no encontrado. Verifica la placa.");
+    }
+        
+        
+
+
+    }//GEN-LAST:event_BtnBuscarActionPerformed
+
+    private void tablaDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDetalleMouseClicked
+
+    }//GEN-LAST:event_tablaDetalleMouseClicked
 
     /**
      * @param args the command line arguments
@@ -104,7 +538,31 @@ public class Vehiculos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnActualizar;
+    private javax.swing.JButton BtnAgregar;
+    private javax.swing.JButton BtnBuscar;
+    private javax.swing.JButton BtnEliminar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tablaDetalle;
+    private javax.swing.JTextField txtAnoFabricacion;
+    private javax.swing.JTextField txtAnoMatricula;
+    private javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtMotor;
+    private javax.swing.JTextField txtPlaca;
+    private javax.swing.JTextField txtPrecioVenta;
+    private javax.swing.JTextField txtTipoVehiculo;
+    private javax.swing.JTextField txtTransmision;
     // End of variables declaration//GEN-END:variables
 }

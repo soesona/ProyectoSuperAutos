@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException; 
 import javax.swing.JOptionPane;
 import java.sql.Statement;
+
 /**
  *
  * @author Sthefany
@@ -20,7 +21,7 @@ import java.sql.Statement;
 public class Login extends javax.swing.JFrame {
 Conexionsqlnetbeans cone = new Conexionsqlnetbeans();
 
-
+    
     /**
      * Creates new form Login
      */

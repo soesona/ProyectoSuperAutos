@@ -77,7 +77,33 @@ public class MantenimientoComboBoxes {
         return modelo; 
     }
     
-    
+    public DefaultComboBoxModel llenarSucursales ()
+    {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel ();
+        
+        modelo.addElement("000 - Seleccione");
+        
+        try {
+        Connection con = cone.obtenerconexion();
+
+        CallableStatement cmd = con.prepareCall("{CALL SP_SUCURSALES()}");
+
+        ResultSet rs= cmd.executeQuery();
+        
+        while(rs.next()) {
+//            System.out.println(rs.getString(1));
+            modelo.addElement(rs.getString(1));
+        
+        }
+
+        }
+        catch(Exception ex) 
+        {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+
+        return modelo; 
+    }
     
     public DefaultComboBoxModel llenarVehiculos ()
     {
